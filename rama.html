@@ -43,8 +43,9 @@
       .hero { position: relative; display: grid; place-items: center; min-height: 100vh; min-height: 100dvh; overflow: hidden; background: #0c0c0d; }
       .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
       .hero-shade { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0,0,0,.28) 0%, rgba(0,0,0,.62) 72%), linear-gradient(180deg, rgba(0,0,0,.35), transparent 20%, transparent 78%, rgba(0,0,0,.55)); }
-      .hero-center { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; width: min(440px, 86vw); }
-      .mark { width: 100%; height: auto; color: #fff; }
+      .hero-center { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; width: min(760px, 90vw); }
+      .hero-center::before { content: ""; position: absolute; z-index: -1; left: 50%; top: 38%; width: 108%; height: 86%; transform: translate(-50%, -50%); background: radial-gradient(ellipse at center, rgba(244,241,234,.94) 0%, rgba(244,241,234,.7) 46%, rgba(244,241,234,0) 72%); pointer-events: none; }
+      .mark { width: 100%; height: auto; }
       .hero-line { margin: 18px 0 0; color: rgba(255,255,255,.82); font-size: 12px; letter-spacing: .22em; text-transform: uppercase; }
       .hero-note { position: absolute; z-index: 1; bottom: 28px; left: 0; right: 0; margin: 0; color: var(--lime); font-size: 12px; letter-spacing: .18em; text-align: center; text-transform: uppercase; }
       .block { padding: 72px 0 24px; }
@@ -89,7 +90,6 @@
         .menu a { display: flex; align-items: center; height: 44px; color: var(--ink); font-size: 15px; letter-spacing: .06em; text-decoration: none; text-transform: uppercase; }
         .menu a.plain { letter-spacing: 0; text-transform: none; }
         .wide-grid { grid-template-columns: 1fr; }
-        .mark { width: min(320px, 86vw); }
       }
     </style>
   </head>
@@ -127,17 +127,7 @@
         </video>
         <div class="hero-shade"></div>
         <div class="hero-center">
-          <svg class="mark" viewBox="0 0 360 148" role="img" aria-label="Рама">
-            <rect x="1.5" y="1.5" width="357" height="145" fill="none" stroke="currentColor" stroke-width="1.5" />
-            <rect x="12" y="12" width="336" height="124" fill="none" stroke="currentColor" stroke-width="0.75" opacity="0.55" />
-            <rect x="170" width="20" height="3" fill="#8ad34e" />
-            <text fill="currentColor" font-family="Manrope, sans-serif" font-size="52" font-weight="600">
-              <tspan x="108" y="90" text-anchor="middle">Р</tspan>
-              <tspan x="156" y="90" text-anchor="middle">А</tspan>
-              <tspan x="204" y="90" text-anchor="middle">М</tspan>
-              <tspan x="252" y="90" text-anchor="middle">А</tspan>
-            </text>
-          </svg>
+          <img class="mark" src="logo.png" alt="Рама" />
           <p class="hero-line">Видео и сайты</p>
         </div>
         <p class="hero-note">Шоурил</p>

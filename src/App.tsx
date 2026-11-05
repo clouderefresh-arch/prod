@@ -108,7 +108,7 @@ export function App() {
           </video>
           <div className="hero-shade" />
           <div className="hero-center">
-            <Logo />
+            <img className="mark" src="/logo.png" alt="Рама" />
             <p className="hero-line">Видео и сайты</p>
           </div>
           <p className="hero-note">Шоурил</p>
@@ -198,26 +198,3 @@ function PieceCard({ piece, shape, tag }: { piece: Piece; shape: "reel" | "wide"
   )
 }
 
-function Logo() {
-  return (
-    <svg className="mark" viewBox="0 0 360 148" role="img" aria-label="Рама">
-      <rect x="1.5" y="1.5" width="357" height="145" fill="none" stroke="currentColor" strokeWidth="1.5" />
-      <rect x="12" y="12" width="336" height="124" fill="none" stroke="currentColor" strokeWidth="0.75" opacity="0.55" />
-      <rect x="170" width="20" height="3" fill="#8ad34e" />
-      <text fill="currentColor" fontFamily="Manrope, sans-serif" fontSize="52" fontWeight="600">
-        <tspan x="108" y="90" textAnchor="middle">
-          Р
-        </tspan>
-        <tspan x="156" y="90" textAnchor="middle">
-          А
-        </tspan>
-        <tspan x="204" y="90" textAnchor="middle">
-          М
-        </tspan>
-        <tspan x="252" y="90" textAnchor="middle">
-          А
-        </tspan>
-      </text>
-    </svg>
-  )
-}

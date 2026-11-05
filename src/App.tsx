@@ -1,6 +1,17 @@
-import { FormEvent, useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Menu, X } from "lucide-react"
-import { REELS, SITES, STUDIO_CITY, STUDIO_MAIL, STUDIO_NAME, WIDES, type Piece } from "./site"
+import {
+  REELS,
+  SITES,
+  STUDIO_CITY,
+  STUDIO_MAIL,
+  STUDIO_NAME,
+  STUDIO_PHONE,
+  STUDIO_PHONE_LABEL,
+  STUDIO_TELEGRAM,
+  WIDES,
+  type Piece,
+} from "./site"
 
 const LINKS = [
   { href: "#video", label: "Съёмка" },
@@ -9,9 +20,7 @@ const LINKS = [
 
 export function App() {
   const [open, setOpen] = useState(false)
-  const [letter, setLetter] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
-  const taskRef = useRef<HTMLTextAreaElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
@@ -33,23 +42,6 @@ export function App() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) video.pause()
   }, [])
 
-  function choose(piece: Piece) {
-    if (taskRef.current) taskRef.current.value = `Интересует формат: ${piece.title}`
-    document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })
-    taskRef.current?.focus()
-  }
-
-  function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    const data = new FormData(event.currentTarget)
-    const name = String(data.get("name") ?? "").trim()
-    const task = String(data.get("task") ?? "").trim()
-    const subject = encodeURIComponent(name ? `${STUDIO_NAME}, ${name}` : STUDIO_NAME)
-    const body = encodeURIComponent(`${name}\n\n${task}`)
-    setLetter(true)
-    window.location.href = `mailto:${STUDIO_MAIL}?subject=${subject}&body=${body}`
-  }
-
   return (
     <div className="page" id="top">
       <header className="nav-bar">
@@ -61,12 +53,17 @@ export function App() {
               </a>
             ))}
           </nav>
-          <a className="nav-mail" href={`mailto:${STUDIO_MAIL}`}>
-            {STUDIO_MAIL}
-          </a>
-          <a className="btn btn-nav" href="#contact">
-            Оставить заявку
-          </a>
+          <div className="nav-contacts">
+            <a className="nav-mail" href={`mailto:${STUDIO_MAIL}`}>
+              {STUDIO_MAIL}
+            </a>
+            <a className="nav-mail" href={`tel:${STUDIO_PHONE}`}>
+              {STUDIO_PHONE_LABEL}
+            </a>
+            <a className="btn btn-nav" href={`https://t.me/${STUDIO_TELEGRAM}`} target="_blank" rel="noreferrer">
+              Telegram
+            </a>
+          </div>
           <button
             type="button"
             className="menu-btn"
@@ -84,8 +81,14 @@ export function App() {
               {link.label}
             </a>
           ))}
-          <a href="#contact" onClick={() => setOpen(false)}>
-            Оставить заявку
+          <a className="plain" href={`mailto:${STUDIO_MAIL}`} onClick={() => setOpen(false)}>
+            {STUDIO_MAIL}
+          </a>
+          <a className="plain" href={`tel:${STUDIO_PHONE}`} onClick={() => setOpen(false)}>
+            {STUDIO_PHONE_LABEL}
+          </a>
+          <a className="plain" href={`https://t.me/${STUDIO_TELEGRAM}`} target="_blank" rel="noreferrer" onClick={() => setOpen(false)}>
+            @{STUDIO_TELEGRAM}
           </a>
         </div>
       </header>
@@ -120,13 +123,13 @@ export function App() {
             <h3 className="subhead">Рилсы</h3>
             <div className="reel-grid">
               {REELS.map((piece) => (
-                <PieceCard key={piece.id} piece={piece} shape="reel" tag="Рилс" onChoose={choose} />
+                <PieceCard key={piece.id} piece={piece} shape="reel" tag="Рилс" />
               ))}
             </div>
             <h3 className="subhead">Горизонтальные</h3>
             <div className="wide-grid">
               {WIDES.map((piece) => (
-                <PieceCard key={piece.id} piece={piece} shape="wide" tag="16:9" onChoose={choose} />
+                <PieceCard key={piece.id} piece={piece} shape="wide" tag="16:9" />
               ))}
             </div>
           </div>
@@ -138,39 +141,22 @@ export function App() {
             <p className="lede">Собираем страницу под снятый кадр. Каркас, текст и вёрстка. Сайт открывается сразу.</p>
             <div className="wide-grid site-grid">
               {SITES.map((piece) => (
-                <PieceCard key={piece.id} piece={piece} shape="wide" tag="Сайт" onChoose={choose} />
+                <PieceCard key={piece.id} piece={piece} shape="wide" tag="Сайт" />
               ))}
             </div>
           </div>
         </section>
 
-        <section className="contact" id="contact" aria-labelledby="contact-title">
-          <div className="wrap contact-grid">
-            <div>
-              <h2 id="contact-title">Заявка</h2>
-              <p className="contact-lead">Коротко, что снимаем и какая страница нужна.</p>
-              <p className="contact-mail">
-                <a href={`mailto:${STUDIO_MAIL}`}>{STUDIO_MAIL}</a>
-              </p>
+        <section className="reach" id="reach" aria-labelledby="reach-title">
+          <div className="wrap">
+            <h2 id="reach-title">Связаться</h2>
+            <div className="reach-row">
+              <a href={`mailto:${STUDIO_MAIL}`}>{STUDIO_MAIL}</a>
+              <a href={`tel:${STUDIO_PHONE}`}>{STUDIO_PHONE_LABEL}</a>
+              <a className="btn" href={`https://t.me/${STUDIO_TELEGRAM}`} target="_blank" rel="noreferrer">
+                Telegram
+              </a>
             </div>
-            <form className="form" onSubmit={onSubmit}>
-              <label className="field">
-                <span>Имя</span>
-                <input name="name" type="text" autoComplete="name" required maxLength={80} />
-              </label>
-              <label className="field">
-                <span>О задаче</span>
-                <textarea ref={taskRef} name="task" required maxLength={2000} rows={5} />
-              </label>
-              <button className="btn" type="submit">
-                Отправить
-              </button>
-              {letter ? (
-                <p className="form-note" role="status">
-                  Открываем письмо в почте. Если окно не появилось, адрес выше.
-                </p>
-              ) : null}
-            </form>
           </div>
         </section>
       </main>
@@ -180,34 +166,23 @@ export function App() {
           <span>
             {STUDIO_NAME}, {STUDIO_CITY}
           </span>
-          <a href={`mailto:${STUDIO_MAIL}`}>{STUDIO_MAIL}</a>
+          <span className="footer-links">
+            <a href={`mailto:${STUDIO_MAIL}`}>{STUDIO_MAIL}</a>
+            <a href={`tel:${STUDIO_PHONE}`}>{STUDIO_PHONE_LABEL}</a>
+            <a href={`https://t.me/${STUDIO_TELEGRAM}`} target="_blank" rel="noreferrer">
+              @{STUDIO_TELEGRAM}
+            </a>
+          </span>
         </div>
       </footer>
     </div>
   )
 }
 
-function PieceCard({
-  piece,
-  shape,
-  tag,
-  onChoose,
-}: {
-  piece: Piece
-  shape: "reel" | "wide"
-  tag: string
-  onChoose: (piece: Piece) => void
-}) {
+function PieceCard({ piece, shape, tag }: { piece: Piece; shape: "reel" | "wide"; tag: string }) {
   return (
     <article className="piece">
-      <a
-        className={`work work-${shape}`}
-        href="#contact"
-        onClick={(event) => {
-          event.preventDefault()
-          onChoose(piece)
-        }}
-      >
+      <div className={`work work-${shape}`}>
         <span className={`still still-${piece.still}`} aria-hidden="true" />
         <span className="work-shade" aria-hidden="true" />
         <span className="work-bottom">
@@ -217,7 +192,7 @@ function PieceCard({
           </span>
           <span className="work-tag">{tag}</span>
         </span>
-      </a>
+      </div>
       <p className="piece-text">{piece.text}</p>
     </article>
   )

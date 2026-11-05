@@ -178,19 +178,6 @@ body { margin: 0; background: var(--bg); }
   width: min(760px, 90vw);
 }
 
-.hero-center::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  left: 50%;
-  top: 38%;
-  width: 108%;
-  height: 86%;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(ellipse at center, rgba(244, 241, 234, 0.94) 0%, rgba(244, 241, 234, 0.7) 46%, rgba(244, 241, 234, 0) 72%);
-  pointer-events: none;
-}
-
 .mark {
   width: 100%;
   height: auto;

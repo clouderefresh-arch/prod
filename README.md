@@ -4,6 +4,8 @@
 
 Имя, город и почта живут в `src/site.ts`.
 
+Открыть без сборки: `rama.html`.
+
 ```bash
 npm install
 npm run dev

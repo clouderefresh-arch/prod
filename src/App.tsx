@@ -1,20 +1,18 @@
-import { FormEvent, useEffect, useMemo, useRef, useState } from "react"
+import { FormEvent, useEffect, useRef, useState } from "react"
 import { Menu, X } from "lucide-react"
-import { SERVICES, SPHERES, STUDIO_CITY, STUDIO_MAIL, STUDIO_NAME, WORKS, worksLabel, type Service, type Sphere, type Work } from "./site"
+import { REELS, SITES, STUDIO_CITY, STUDIO_MAIL, STUDIO_NAME, WIDES, type Piece } from "./site"
 
 const LINKS = [
-  { href: "#works", label: "Портфолио" },
-  { href: "#order", label: "Порядок" },
+  { href: "#video", label: "Съёмка" },
+  { href: "#sites", label: "Сайты" },
 ]
 
 export function App() {
   const [open, setOpen] = useState(false)
   const [letter, setLetter] = useState(false)
-  const [query, setQuery] = useState("")
-  const [service, setService] = useState<Service | "">("")
-  const [sphere, setSphere] = useState<Sphere | "">("")
   const menuRef = useRef<HTMLDivElement>(null)
   const taskRef = useRef<HTMLTextAreaElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
     if (menuRef.current) menuRef.current.inert = !open
@@ -29,18 +27,14 @@ export function App() {
     return () => window.removeEventListener("keydown", onKey)
   }, [open])
 
-  const shown = useMemo(() => {
-    const q = query.trim().toLowerCase()
-    return WORKS.filter((work) => {
-      if (service && work.service !== service) return false
-      if (sphere && work.sphere !== sphere) return false
-      if (!q) return true
-      return `${work.title} ${work.service} ${work.sphere}`.toLowerCase().includes(q)
-    })
-  }, [query, service, sphere])
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) video.pause()
+  }, [])
 
-  function choose(work: Work) {
-    if (taskRef.current) taskRef.current.value = `Интересует формат: ${work.title}`
+  function choose(piece: Piece) {
+    if (taskRef.current) taskRef.current.value = `Интересует формат: ${piece.title}`
     document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })
     taskRef.current?.focus()
   }
@@ -60,9 +54,6 @@ export function App() {
     <div className="page" id="top">
       <header className="nav-bar">
         <div className="wrap nav">
-          <a className="logo" href="#top">
-            {STUDIO_NAME}
-          </a>
           <nav className="nav-links" aria-label="Разделы">
             {LINKS.map((link) => (
               <a key={link.href} href={link.href}>
@@ -100,113 +91,56 @@ export function App() {
       </header>
 
       <main>
-        <section className="works" id="works" aria-labelledby="works-title">
+        <section className="hero" aria-label="Шоурил">
+          <video
+            ref={videoRef}
+            className="hero-video"
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster="/showreel.jpg"
+          >
+            <source src="/showreel.mp4" type="video/mp4" />
+          </video>
+          <div className="hero-shade" />
+          <div className="hero-center">
+            <Logo />
+            <p className="hero-line">Видео и сайты</p>
+          </div>
+          <p className="hero-note">Шоурил</p>
+        </section>
+
+        <section className="block" id="video" aria-labelledby="video-title">
           <div className="wrap">
-            <h1 id="works-title">Работы</h1>
-            <p className="lede">Репортажные и рекламные рилс, и сайты, на которых этот кадр остаётся.</p>
-            <label className="search">
-              <SearchIcon />
-              <input
-                type="search"
-                placeholder="Поиск"
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                aria-label="Поиск"
-              />
-            </label>
-            <p className="works-count" aria-live="polite">
-              {worksLabel(shown.length)}
+            <h2 id="video-title">Видеосъёмка</h2>
+            <p className="lede">
+              Репортаж и реклама с места. Вертикальный рилс для ленты и горизонтальный ролик для сайта и большого экрана.
             </p>
-            <div className="filters">
-              <div>
-                <p className="filters-label">По услугам</p>
-                <div className="filters-line" role="group" aria-label="По услугам">
-                  {SERVICES.map((name, index) => (
-                    <span key={name}>
-                      {index > 0 ? <span className="slash">/</span> : null}
-                      <button type="button" aria-pressed={service === name} onClick={() => setService(service === name ? "" : name)}>
-                        {name}
-                      </button>
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <p className="filters-label">По сферам</p>
-                <div className="filters-line" role="group" aria-label="По сферам">
-                  {SPHERES.map((name, index) => (
-                    <span key={name}>
-                      {index > 0 ? <span className="slash">/</span> : null}
-                      <button type="button" aria-pressed={sphere === name} onClick={() => setSphere(sphere === name ? "" : name)}>
-                        {name}
-                      </button>
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <div className="works-grid">
-              {shown.map((work) => (
-                <a
-                  key={work.id}
-                  className="work"
-                  href="#contact"
-                  onClick={(event) => {
-                    event.preventDefault()
-                    choose(work)
-                  }}
-                >
-                  <span className={`still still-${work.id}`} aria-hidden="true" />
-                  <span className="work-shade" aria-hidden="true" />
-                  <span className="work-date">{work.date}</span>
-                  <span className="work-bottom">
-                    <span>
-                      <span className="work-name">{work.title}</span>
-                      <span className="work-time">{work.time}</span>
-                    </span>
-                    <span className="work-tags">
-                      <span className="work-tag">{work.service}</span>
-                      <span className="work-tag">{work.sphere}</span>
-                    </span>
-                  </span>
-                  <span className="work-hover" aria-hidden="true">
-                    <span className="work-hover-name">{work.title}</span>
-                    <span className="work-hover-time">{work.time}</span>
-                    <span className="work-more">Подробнее</span>
-                  </span>
-                </a>
+            <h3 className="subhead">Рилсы</h3>
+            <div className="reel-grid">
+              {REELS.map((piece) => (
+                <PieceCard key={piece.id} piece={piece} shape="reel" tag="Рилс" onChoose={choose} />
               ))}
             </div>
-            {shown.length === 0 ? <p className="works-empty">Ничего не нашлось. Снимите фильтр или измените запрос.</p> : null}
+            <h3 className="subhead">Горизонтальные</h3>
+            <div className="wide-grid">
+              {WIDES.map((piece) => (
+                <PieceCard key={piece.id} piece={piece} shape="wide" tag="16:9" onChoose={choose} />
+              ))}
+            </div>
           </div>
         </section>
 
-        <section className="sheet" id="order" aria-labelledby="order-title">
+        <section className="block" id="sites" aria-labelledby="sites-title">
           <div className="wrap">
-            <h2 id="order-title">Порядок</h2>
-            <ol>
-              <li>
-                <span className="idx">01</span>
-                <div>
-                  <h3>Съёмка</h3>
-                  <p>Репортаж с места и рекламный рилс. На выходе вертикальный ролик.</p>
-                </div>
-              </li>
-              <li>
-                <span className="idx">02</span>
-                <div>
-                  <h3>Сайт</h3>
-                  <p>Каркас, текст и вёрстка страницы, на которой остаётся этот кадр.</p>
-                </div>
-              </li>
-              <li>
-                <span className="idx">03</span>
-                <div>
-                  <h3>Вместе</h3>
-                  <p>Ролик и страница про одно и то же. Сначала кадр, потом место, где он живёт.</p>
-                </div>
-              </li>
-            </ol>
+            <h2 id="sites-title">Разработка сайтов</h2>
+            <p className="lede">Собираем страницу под снятый кадр. Каркас, текст и вёрстка. Сайт открывается сразу.</p>
+            <div className="wide-grid site-grid">
+              {SITES.map((piece) => (
+                <PieceCard key={piece.id} piece={piece} shape="wide" tag="Сайт" onChoose={choose} />
+              ))}
+            </div>
           </div>
         </section>
 
@@ -253,11 +187,62 @@ export function App() {
   )
 }
 
-function SearchIcon() {
+function PieceCard({
+  piece,
+  shape,
+  tag,
+  onChoose,
+}: {
+  piece: Piece
+  shape: "reel" | "wide"
+  tag: string
+  onChoose: (piece: Piece) => void
+}) {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <circle cx="7" cy="7" r="4.25" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M10.5 10.5L13.5 13.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    <article className="piece">
+      <a
+        className={`work work-${shape}`}
+        href="#contact"
+        onClick={(event) => {
+          event.preventDefault()
+          onChoose(piece)
+        }}
+      >
+        <span className={`still still-${piece.still}`} aria-hidden="true" />
+        <span className="work-shade" aria-hidden="true" />
+        <span className="work-bottom">
+          <span>
+            <span className="work-name">{piece.title}</span>
+            <span className="work-time">{piece.time}</span>
+          </span>
+          <span className="work-tag">{tag}</span>
+        </span>
+      </a>
+      <p className="piece-text">{piece.text}</p>
+    </article>
+  )
+}
+
+function Logo() {
+  return (
+    <svg className="mark" viewBox="0 0 360 148" role="img" aria-label="Рама">
+      <rect x="1.5" y="1.5" width="357" height="145" fill="none" stroke="currentColor" strokeWidth="1.5" />
+      <rect x="12" y="12" width="336" height="124" fill="none" stroke="currentColor" strokeWidth="0.75" opacity="0.55" />
+      <rect x="170" width="20" height="3" fill="#8ad34e" />
+      <text fill="currentColor" fontFamily="Manrope, sans-serif" fontSize="52" fontWeight="600">
+        <tspan x="108" y="90" textAnchor="middle">
+          Р
+        </tspan>
+        <tspan x="156" y="90" textAnchor="middle">
+          А
+        </tspan>
+        <tspan x="204" y="90" textAnchor="middle">
+          М
+        </tspan>
+        <tspan x="252" y="90" textAnchor="middle">
+          А
+        </tspan>
+      </text>
     </svg>
   )
 }

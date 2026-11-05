@@ -5,430 +5,203 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Рама — рилс и сайты</title>
     <meta name="description" content="Рама снимает репортажные и рекламные рилс и собирает сайты под этот кадр." />
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23121212'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%238ad34e'/%3E%3C/svg%3E" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23121212'/%3E%3Crect x='6' y='6' width='20' height='20' fill='none' stroke='%23fff' stroke-width='1.25'/%3E%3Crect x='14' y='5' width='4' height='2' fill='%238ad34e'/%3E%3C/svg%3E" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600&display=swap" rel="stylesheet" />
     <style>
       :root {
-        --bg: #121212;
-        --ink: #ffffff;
-        --muted: #b0b0b0;
-        --dim: #8a8a8a;
-        --line: rgba(255, 255, 255, 0.14);
-        --lime: #8ad34e;
-        --lime-soft: rgba(138, 211, 78, 0.16);
-        --card: #1c1c1c;
+        --bg: #121212; --ink: #fff; --muted: #b0b0b0; --line: rgba(255,255,255,.14);
+        --lime: #8ad34e; --lime-soft: rgba(138,211,78,.16); --card: #1c1c1c;
         --sans: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
-        --ease: cubic-bezier(0.22, 1, 0.36, 1);
+        --ease: cubic-bezier(.22,1,.36,1);
       }
       * { box-sizing: border-box; }
       html { color-scheme: dark; }
-      body {
-        margin: 0;
-        background: var(--bg);
-        color: var(--ink);
-        font-family: var(--sans);
-        font-size: 16px;
-        font-weight: 500;
-        line-height: 1.4;
-        text-rendering: optimizeLegibility;
-        -webkit-font-smoothing: antialiased;
-      }
+      body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 16px; font-weight: 500; line-height: 1.4; -webkit-font-smoothing: antialiased; }
       ::selection { background: var(--lime); color: var(--bg); }
       :focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
-      .sr-only {
-        position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-        overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
-      }
-      #works, #order, #contact { scroll-margin-top: 80px; }
+      .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+      #video, #sites, #contact { scroll-margin-top: 80px; }
       .wrap { width: min(1160px, calc(100% - 48px)); margin-inline: auto; }
-      .nav-bar {
-        position: sticky; top: 0; z-index: 20; background: var(--bg);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-      }
+      .nav-bar { position: fixed; top: 0; right: 0; left: 0; z-index: 20; background: rgba(18,18,18,.55); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,.06); }
       .nav { display: flex; align-items: center; height: 64px; gap: 24px; }
-      .logo {
-        color: var(--ink); font-size: 18px; font-weight: 600; letter-spacing: 0.04em;
-        text-decoration: none; text-transform: uppercase;
-      }
-      .nav-links { display: flex; align-items: center; gap: 22px; margin-left: auto; }
-      .nav-links a, .nav-mail, footer a {
-        color: var(--ink); font-size: 13px; letter-spacing: 0.06em; text-decoration: none;
-        text-transform: uppercase; transition: color 160ms var(--ease);
-      }
+      .nav-links { display: flex; align-items: center; gap: 22px; }
+      .nav-links a, .nav-mail, footer a { color: var(--ink); font-size: 13px; letter-spacing: .06em; text-decoration: none; text-transform: uppercase; transition: color 160ms var(--ease); }
       .nav-links a:hover, .nav-mail:hover, footer a:hover { color: var(--lime); }
-      .nav-mail { color: rgba(255, 255, 255, 0.72); text-transform: none; letter-spacing: 0.02em; }
-      .btn {
-        display: inline-flex; align-items: center; justify-content: center; height: 44px;
-        padding: 0 18px; border: 0; border-radius: 999px; background: var(--lime); color: var(--bg);
-        font: inherit; font-size: 13px; font-weight: 600; letter-spacing: 0.04em;
-        text-transform: uppercase; text-decoration: none; cursor: pointer;
-        transition: background-color 160ms var(--ease), transform 160ms var(--ease);
-      }
+      .nav-mail { margin-left: auto; color: rgba(255,255,255,.72); text-transform: none; letter-spacing: .02em; }
+      .btn { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: var(--lime); color: var(--bg); font: inherit; font-size: 13px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; text-decoration: none; cursor: pointer; }
       .btn:hover { background: #9adf62; }
-      .btn:active { transform: scale(0.98); }
       .btn-nav { height: 40px; }
-      .menu-btn {
-        display: none; align-items: center; justify-content: center; width: 40px; height: 40px;
-        padding: 0; border: 1px solid var(--line); border-radius: 999px; background: transparent;
-        color: var(--ink); cursor: pointer;
-      }
+      .menu-btn { display: none; align-items: center; justify-content: center; width: 40px; height: 40px; padding: 0; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--ink); cursor: pointer; }
       .menu-btn svg { display: block; }
       .menu-btn svg[hidden] { display: none; }
       .menu { display: none; }
-      .works { padding: 48px 0 72px; }
-      h1, h2 {
-        margin: 0; color: var(--lime); font-size: 24px; font-weight: 500; line-height: 1.2;
-        letter-spacing: 0.04em; text-transform: uppercase;
-      }
-      .lede {
-        max-width: 640px; margin: 12px 0 0; color: rgba(255, 255, 255, 0.78);
-        font-size: 16px; line-height: 24px;
-      }
-      .search {
-        display: flex; align-items: center; gap: 10px; margin-top: 28px; padding-bottom: 10px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.45); color: var(--ink);
-      }
-      .search input {
-        flex: 1; min-width: 0; border: 0; background: transparent; color: var(--ink);
-        font: inherit; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase;
-      }
-      .search input::placeholder { color: rgba(255, 255, 255, 0.7); }
-      .search input:focus { outline: none; }
-      .works-count { margin: 28px 0 0; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; }
-      .filters { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 48px; margin: 32px 0 40px; }
-      .filters-label { margin: 0 0 10px; font-size: 16px; line-height: 22px; }
-      .filters-line { color: var(--dim); font-size: 13px; line-height: 1.7; letter-spacing: 0.04em; text-transform: uppercase; }
-      .filters-line button {
-        padding: 0; border: 0; background: none; color: inherit; font: inherit;
-        letter-spacing: inherit; text-transform: inherit; cursor: pointer;
-      }
-      .filters-line button:hover { color: var(--ink); }
-      .filters-line button[aria-pressed="true"] { color: var(--lime); }
-      .slash { margin: 0 6px; }
-      .works-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 35px 40px; }
-      .work {
-        position: relative; display: block; aspect-ratio: 560 / 294; overflow: hidden;
-        border-radius: 30px; color: var(--ink); text-decoration: none;
-      }
-      .work[hidden] { display: none; }
-      .still, .work-shade, .work-hover { position: absolute; inset: 0; }
-      .work-shade {
-        background: linear-gradient(180deg, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0.02) 38%, rgba(0, 0, 0, 0.78) 100%);
-      }
-      .work-date, .work-bottom, .work-hover { z-index: 1; }
-      .work-date { position: absolute; top: 16px; left: 20px; font-size: 14px; line-height: 16px; }
-      .work-bottom {
-        position: absolute; right: 16px; bottom: 16px; left: 16px; display: flex;
-        align-items: flex-end; justify-content: space-between; gap: 12px;
-      }
-      .work-name { display: block; max-width: 280px; font-size: 16px; line-height: 1.3; }
-      .work-time { display: block; margin-top: 6px; color: var(--muted); font-size: 15px; line-height: 20px; }
-      .work-tags { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; max-width: 46%; }
-      .work-tag {
-        padding: 8px 10px; border-radius: 60px; background: var(--lime-soft); color: var(--lime);
-        font-size: 11px; line-height: 1; letter-spacing: 0.04em; text-transform: uppercase;
-      }
-      .work-hover {
-        z-index: 2; display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start;
-        gap: 6px; padding: 24px; background: var(--lime); color: var(--bg); opacity: 0;
-        transition: opacity 180ms var(--ease);
-      }
-      .work-hover-name { max-width: 420px; font-size: 28px; line-height: 1.15; }
-      .work-hover-time { color: rgba(18, 18, 18, 0.72); font-size: 16px; }
-      .work-more {
-        align-self: flex-end; margin-top: 12px; display: inline-flex; align-items: center;
-        height: 43px; padding: 0 18px; border-radius: 16px; background: #fff; color: var(--bg); font-size: 16px;
-      }
-      @media (hover: hover) {
-        .work:hover .work-hover, .work:focus-visible .work-hover { opacity: 1; }
-      }
-      .works-empty { margin: 28px 0 0; color: var(--muted); font-size: 15px; }
-      .works-empty[hidden] { display: none; }
-      .still-open {
-        background:
-          radial-gradient(120px 150px at 76% 58%, #f3d48a 0%, #e2b85a 42%, transparent 72%),
-          linear-gradient(#2c241c, #2c241c) 64% 22% / 30% 78% no-repeat,
-          linear-gradient(#8d7760, #8d7760) 0 20% / 100% 12px no-repeat, #c4a882;
-      }
-      .still-product {
-        background:
-          linear-gradient(#d7c4a4, #d7c4a4) 50% 64% / 42% 6px no-repeat,
-          linear-gradient(#f4f1ea, #f4f1ea) 50% 40% / 42px 100px no-repeat,
-          radial-gradient(42% 55% at 50% 38%, #3a342c, #141210 72%);
-      }
-      .still-hall {
-        background:
-          radial-gradient(16px 16px at 28% 30%, #f2d48a, transparent 70%),
-          radial-gradient(22px 22px at 50% 24%, #fff4d2, transparent 70%),
-          radial-gradient(16px 16px at 72% 32%, #f2d48a, transparent 70%),
-          linear-gradient(#141820, #141820) 0 64% / 100% 36% no-repeat, #0e1016;
-      }
-      .still-table {
-        background:
-          linear-gradient(#f0e2cc, #f0e2cc) 62% 56% / 92px 58px no-repeat,
-          linear-gradient(#8a704e, #6d5438);
-      }
-      .still-plant {
-        background:
-          linear-gradient(rgba(255,255,255,.4), rgba(255,255,255,.4)) 0 48% / 100% 2px no-repeat,
-          linear-gradient(#4d5854, #4d5854) 16% 28% / 22% 58% no-repeat,
-          linear-gradient(#3c4642, #3c4642) 46% 22% / 30% 66% no-repeat, #1d2422;
-      }
-      .still-bakery {
-        background:
-          linear-gradient(#2c241c, #2c241c) 72% 30% / 22% 36% no-repeat,
-          linear-gradient(rgba(44,36,28,.9), rgba(44,36,28,.9)) 12% 34% / 34% 12px no-repeat,
-          linear-gradient(rgba(44,36,28,.4), rgba(44,36,28,.4)) 12% 44% / 24% 8px no-repeat, #e7d7c2;
-      }
-      .still-shop {
-        background:
-          linear-gradient(rgba(255,255,255,.9), rgba(255,255,255,.9)) 12% 32% / 42% 14px no-repeat,
-          linear-gradient(rgba(255,255,255,.4), rgba(255,255,255,.4)) 12% 44% / 28% 8px no-repeat,
-          linear-gradient(#8ad34e, #8ad34e) 12% 56% / 16% 12px no-repeat, #1a1a1a;
-      }
-      .still-catalog {
-        background:
-          linear-gradient(#3a312b, #3a312b) 12% 26% / 36% 34% no-repeat,
-          linear-gradient(#3a312b, #3a312b) 54% 26% / 36% 34% no-repeat, #241e1a;
-      }
-      .sheet { padding: 24px 0 32px; }
-      ol { margin: 28px 0 0; padding: 0; list-style: none; }
-      li {
-        display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 16px;
-        padding: 22px 0; border-top: 1px solid var(--line);
-      }
-      li:last-child { border-bottom: 1px solid var(--line); }
-      .idx { padding-top: 2px; color: var(--lime); font-size: 13px; letter-spacing: 0.06em; }
-      h3 { margin: 0 0 6px; font-size: 18px; font-weight: 500; line-height: 24px; }
-      li p, .contact-lead {
-        max-width: 520px; margin: 0; color: rgba(255, 255, 255, 0.72); font-size: 15px; line-height: 22px;
-      }
+      .hero { position: relative; display: grid; place-items: center; min-height: 100vh; min-height: 100dvh; overflow: hidden; background: #0c0c0d; }
+      .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      .hero-shade { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0,0,0,.28) 0%, rgba(0,0,0,.62) 72%), linear-gradient(180deg, rgba(0,0,0,.35), transparent 20%, transparent 78%, rgba(0,0,0,.55)); }
+      .hero-center { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; width: min(440px, 86vw); }
+      .mark { width: 100%; height: auto; color: #fff; }
+      .hero-line { margin: 18px 0 0; color: rgba(255,255,255,.82); font-size: 12px; letter-spacing: .22em; text-transform: uppercase; }
+      .hero-note { position: absolute; z-index: 1; bottom: 28px; left: 0; right: 0; margin: 0; color: var(--lime); font-size: 12px; letter-spacing: .18em; text-align: center; text-transform: uppercase; }
+      .block { padding: 72px 0 24px; }
+      h2 { margin: 0; color: var(--lime); font-size: 24px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; }
+      .lede, .contact-lead { max-width: 640px; margin: 12px 0 0; color: rgba(255,255,255,.78); font-size: 16px; line-height: 24px; }
+      .subhead { margin: 36px 0 16px; font-size: 14px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
+      .reel-grid, .wide-grid { display: grid; gap: 28px 20px; }
+      .reel-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .wide-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .site-grid { margin-top: 32px; }
+      .work { position: relative; display: block; overflow: hidden; border-radius: 24px; color: var(--ink); text-decoration: none; }
+      .work-reel { aspect-ratio: 9 / 16; }
+      .work-wide { aspect-ratio: 16 / 9; }
+      .still, .work-shade { position: absolute; inset: 0; }
+      .work-shade { background: linear-gradient(180deg, rgba(0,0,0,.05) 30%, rgba(0,0,0,.78) 100%); }
+      .work-bottom { position: absolute; z-index: 1; right: 14px; bottom: 14px; left: 14px; display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; }
+      .work-name { display: block; font-size: 16px; line-height: 1.25; }
+      .work-time { display: block; margin-top: 4px; color: var(--muted); font-size: 13px; }
+      .work-tag { flex: none; padding: 7px 10px; border-radius: 60px; background: var(--lime-soft); color: var(--lime); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; }
+      .piece-text { margin: 10px 0 0; color: var(--muted); font-size: 14px; line-height: 20px; }
+      .still-open { background: radial-gradient(120px 150px at 76% 48%, #f3d48a 0%, #e2b85a 42%, transparent 72%), linear-gradient(#2c241c,#2c241c) 62% 18% / 32% 64% no-repeat, linear-gradient(#8d7760,#8d7760) 0 18% / 100% 10px no-repeat, #c4a882; }
+      .still-product { background: linear-gradient(#d7c4a4,#d7c4a4) 50% 68% / 42% 6px no-repeat, linear-gradient(#f4f1ea,#f4f1ea) 50% 42% / 36px 120px no-repeat, radial-gradient(42% 50% at 50% 40%, #3a342c, #141210 72%); }
+      .still-hall { background: radial-gradient(14px 14px at 28% 28%, #f2d48a, transparent 70%), radial-gradient(20px 20px at 50% 22%, #fff4d2, transparent 70%), radial-gradient(14px 14px at 72% 30%, #f2d48a, transparent 70%), linear-gradient(#141820,#141820) 0 62% / 100% 38% no-repeat, #0e1016; }
+      .still-table { background: linear-gradient(#f0e2cc,#f0e2cc) 62% 52% / 120px 70px no-repeat, linear-gradient(#8a704e,#6d5438); }
+      .still-plant, .still-line { background: linear-gradient(rgba(255,255,255,.7), rgba(255,255,255,.7)) 0 48% / 100% 2px no-repeat, linear-gradient(#4d5854,#4d5854) 12% 22% / 24% 56% no-repeat, linear-gradient(#3c4642,#3c4642) 42% 16% / 30% 68% no-repeat, linear-gradient(#68726c,#68726c) 76% 28% / 14% 48% no-repeat, #1d2422; }
+      .still-room { background: radial-gradient(180px 90px at 50% 42%, #f2d7a4 0%, transparent 70%), linear-gradient(#2a241c,#2a241c) 18% 30% / 64% 28% no-repeat, #1a1612; }
+      .still-bakery { background: linear-gradient(#2c241c,#2c241c) 72% 28% / 18% 40% no-repeat, linear-gradient(rgba(44,36,28,.9), rgba(44,36,28,.9)) 10% 34% / 36% 12px no-repeat, linear-gradient(rgba(44,36,28,.4), rgba(44,36,28,.4)) 10% 44% / 24% 8px no-repeat, #e7d7c2; }
+      .still-shop { background: linear-gradient(rgba(255,255,255,.9), rgba(255,255,255,.9)) 10% 32% / 42% 14px no-repeat, linear-gradient(rgba(255,255,255,.4), rgba(255,255,255,.4)) 10% 44% / 28% 8px no-repeat, linear-gradient(#8ad34e,#8ad34e) 10% 56% / 16% 10px no-repeat, #1a1a1a; }
+      .still-catalog { background: linear-gradient(#3a312b,#3a312b) 10% 28% / 36% 40% no-repeat, linear-gradient(#3a312b,#3a312b) 54% 28% / 36% 40% no-repeat, #241e1a; }
       .contact { padding: 72px 0 96px; }
-      .contact-grid {
-        display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 460px);
-        justify-content: space-between; column-gap: 48px; row-gap: 32px;
-      }
-      .contact-mail { margin: 16px 0 0; font-size: 14px; }
+      .contact-grid { display: grid; grid-template-columns: minmax(0,360px) minmax(0,460px); justify-content: space-between; column-gap: 48px; row-gap: 32px; }
+      .contact-mail { margin: 16px 0 0; }
       .contact-mail a { color: var(--ink); text-decoration: none; }
       .contact-mail a:hover { color: var(--lime); }
       form { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
       label.field { display: flex; flex-direction: column; gap: 8px; width: 100%; color: var(--muted); font-size: 13px; }
-      input, textarea {
-        width: 100%; border: 1px solid var(--line); border-radius: 12px; background: var(--card);
-        color: var(--ink); font: inherit; font-size: 15px; line-height: 22px;
-      }
+      input, textarea { width: 100%; border: 1px solid var(--line); border-radius: 12px; background: var(--card); color: var(--ink); font: inherit; font-size: 15px; }
       input[type="text"] { height: 44px; padding: 0 12px; }
       textarea { height: 120px; padding: 12px; resize: vertical; }
       .form-note { display: none; margin: 0; color: var(--muted); font-size: 13px; }
       .form-note[data-show] { display: block; }
       footer { border-top: 1px solid var(--line); }
-      .footer-row {
-        display: flex; align-items: center; justify-content: space-between; gap: 16px;
-        min-height: 64px; color: var(--muted); font-size: 13px;
-      }
-      @media (max-width: 980px) { .nav-mail { display: none; } }
+      .footer-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; color: var(--muted); font-size: 13px; }
+      @media (max-width: 980px) { .nav-mail { display: none; } .reel-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
       @media (max-width: 800px) {
         .wrap { width: min(1160px, calc(100% - 40px)); }
         .nav-links, .btn-nav { display: none; }
         .menu-btn { display: inline-flex; margin-left: auto; }
-        .menu {
-          position: absolute; top: 64px; right: 0; left: 0; display: flex; flex-direction: column;
-          padding: 8px 20px 16px; background: var(--bg); border-bottom: 1px solid var(--line);
-          visibility: hidden; opacity: 0; transform: translateY(6px); pointer-events: none;
-          transition: opacity 180ms var(--ease), transform 180ms var(--ease), visibility 180ms var(--ease);
-        }
+        .menu { position: absolute; top: 64px; right: 0; left: 0; display: flex; flex-direction: column; padding: 8px 20px 16px; background: var(--bg); border-bottom: 1px solid var(--line); visibility: hidden; opacity: 0; transform: translateY(6px); pointer-events: none; transition: opacity 180ms var(--ease), transform 180ms var(--ease), visibility 180ms var(--ease); }
         .menu[data-open] { visibility: visible; opacity: 1; transform: none; pointer-events: auto; }
-        .menu a {
-          display: flex; align-items: center; height: 44px; color: var(--ink); font-size: 15px;
-          letter-spacing: 0.06em; text-decoration: none; text-transform: uppercase;
-        }
-        .filters, .works-grid, .contact-grid { grid-template-columns: 1fr; }
-        .works-grid { gap: 20px; }
-        .work { border-radius: 22px; aspect-ratio: 16 / 11; }
-        .work-bottom { flex-direction: column; align-items: flex-start; }
-        .work-name, .work-tags { max-width: none; }
-        .work-tags { justify-content: flex-start; }
-        h1, h2 { font-size: 22px; }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .btn, .nav-links a, .nav-mail, .work-hover, .menu, footer a { transition: none; }
+        .menu a { display: flex; align-items: center; height: 44px; color: var(--ink); font-size: 15px; letter-spacing: .06em; text-decoration: none; text-transform: uppercase; }
+        .wide-grid, .contact-grid { grid-template-columns: 1fr; }
+        .mark { width: min(320px, 86vw); }
       }
     </style>
   </head>
   <body>
     <header class="nav-bar">
       <div class="wrap nav">
-        <a class="logo" href="#top">Рама</a>
         <nav class="nav-links" aria-label="Разделы">
-          <a href="#works">Портфолио</a>
-          <a href="#order">Порядок</a>
+          <a href="#video">Съёмка</a>
+          <a href="#sites">Сайты</a>
         </nav>
         <a class="nav-mail" href="mailto:hello@rama.studio">hello@rama.studio</a>
         <a class="btn btn-nav" href="#contact">Оставить заявку</a>
         <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-menu">
-          <svg class="icon-open" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-            <path d="M3 5h12M3 9h12M3 13h12" />
-          </svg>
-          <svg class="icon-close" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" hidden aria-hidden="true">
-            <path d="M4 4l10 10M14 4L4 14" />
-          </svg>
+          <svg class="icon-open" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 5h12M3 9h12M3 13h12" /></svg>
+          <svg class="icon-close" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" hidden aria-hidden="true"><path d="M4 4l10 10M14 4L4 14" /></svg>
           <span class="sr-only">Меню</span>
         </button>
       </div>
       <div id="site-menu" class="menu" inert>
-        <a href="#works">Портфолио</a>
-        <a href="#order">Порядок</a>
+        <a href="#video">Съёмка</a>
+        <a href="#sites">Сайты</a>
         <a href="#contact">Оставить заявку</a>
       </div>
     </header>
 
     <main id="top">
-      <section class="works" id="works" aria-labelledby="works-title">
+      <section class="hero" aria-label="Шоурил">
+        <video class="hero-video" autoplay muted loop playsinline poster="showreel.jpg">
+          <source src="showreel.mp4" type="video/mp4" />
+        </video>
+        <div class="hero-shade"></div>
+        <div class="hero-center">
+          <svg class="mark" viewBox="0 0 360 148" role="img" aria-label="Рама">
+            <rect x="1.5" y="1.5" width="357" height="145" fill="none" stroke="currentColor" stroke-width="1.5" />
+            <rect x="12" y="12" width="336" height="124" fill="none" stroke="currentColor" stroke-width="0.75" opacity="0.55" />
+            <rect x="170" width="20" height="3" fill="#8ad34e" />
+            <text fill="currentColor" font-family="Manrope, sans-serif" font-size="52" font-weight="600">
+              <tspan x="108" y="90" text-anchor="middle">Р</tspan>
+              <tspan x="156" y="90" text-anchor="middle">А</tspan>
+              <tspan x="204" y="90" text-anchor="middle">М</tspan>
+              <tspan x="252" y="90" text-anchor="middle">А</tspan>
+            </text>
+          </svg>
+          <p class="hero-line">Видео и сайты</p>
+        </div>
+        <p class="hero-note">Шоурил</p>
+      </section>
+
+      <section class="block" id="video" aria-labelledby="video-title">
         <div class="wrap">
-          <h1 id="works-title">Работы</h1>
-          <p class="lede">Репортажные и рекламные рилс, и сайты, на которых этот кадр остаётся.</p>
-          <label class="search">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-              <circle cx="7" cy="7" r="4.25" stroke="currentColor" stroke-width="1.5" />
-              <path d="M10.5 10.5L13.5 13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-            </svg>
-            <input type="search" placeholder="Поиск" aria-label="Поиск" />
-          </label>
-          <p class="works-count" aria-live="polite">8 работ найдено</p>
-          <div class="filters">
-            <div>
-              <p class="filters-label">По услугам</p>
-              <div class="filters-line" role="group" aria-label="По услугам">
-                <button type="button" data-filter="service" data-value="Репортаж" aria-pressed="false">Репортаж</button><span class="slash">/</span>
-                <button type="button" data-filter="service" data-value="Рекламный рилс" aria-pressed="false">Рекламный рилс</button><span class="slash">/</span>
-                <button type="button" data-filter="service" data-value="Сайт" aria-pressed="false">Сайт</button>
-              </div>
-            </div>
-            <div>
-              <p class="filters-label">По сферам</p>
-              <div class="filters-line" role="group" aria-label="По сферам">
-                <button type="button" data-filter="sphere" data-value="Еда" aria-pressed="false">Еда</button><span class="slash">/</span>
-                <button type="button" data-filter="sphere" data-value="Событие" aria-pressed="false">Событие</button><span class="slash">/</span>
-                <button type="button" data-filter="sphere" data-value="Предмет" aria-pressed="false">Предмет</button><span class="slash">/</span>
-                <button type="button" data-filter="sphere" data-value="Услуги" aria-pressed="false">Услуги</button><span class="slash">/</span>
-                <button type="button" data-filter="sphere" data-value="Производство" aria-pressed="false">Производство</button>
-              </div>
-            </div>
+          <h2 id="video-title">Видеосъёмка</h2>
+          <p class="lede">Репортаж и реклама с места. Вертикальный рилс для ленты и горизонтальный ролик для сайта и большого экрана.</p>
+          <h3 class="subhead">Рилсы</h3>
+          <div class="reel-grid">
+            <article class="piece" data-title="Открытие">
+              <a class="work work-reel" href="#contact"><span class="still still-open"></span><span class="work-shade"></span><span class="work-bottom"><span><span class="work-name">Открытие</span><span class="work-time">00:18</span></span><span class="work-tag">Рилс</span></span></a>
+              <p class="piece-text">Вертикальный репортаж первого часа: люди, свет, вывеска.</p>
+            </article>
+            <article class="piece" data-title="Один предмет">
+              <a class="work work-reel" href="#contact"><span class="still still-product"></span><span class="work-shade"></span><span class="work-bottom"><span><span class="work-name">Один предмет</span><span class="work-time">00:15</span></span><span class="work-tag">Рилс</span></span></a>
+              <p class="piece-text">Рекламный рилс. В кадре один предмет, без лишних планов.</p>
+            </article>
+            <article class="piece" data-title="Событие">
+              <a class="work work-reel" href="#contact"><span class="still still-hall"></span><span class="work-shade"></span><span class="work-bottom"><span><span class="work-name">Событие</span><span class="work-time">00:24</span></span><span class="work-tag">Рилс</span></span></a>
+              <p class="piece-text">Короткий репортаж из зала: гости, речь, общий шум.</p>
+            </article>
+            <article class="piece" data-title="Цех">
+              <a class="work work-reel" href="#contact"><span class="still still-plant"></span><span class="work-shade"></span><span class="work-bottom"><span><span class="work-name">Цех</span><span class="work-time">00:22</span></span><span class="work-tag">Рилс</span></span></a>
+              <p class="piece-text">Руки и станок. Рабочий кадр, без постановочной улыбки.</p>
+            </article>
           </div>
-          <div class="works-grid">
-            <a class="work" href="#contact" data-service="Репортаж" data-sphere="Еда" data-title="Репортаж с открытия" data-hay="репортаж с открытия репортаж еда">
-              <span class="still still-open" aria-hidden="true"></span>
-              <span class="work-shade" aria-hidden="true"></span>
-              <span class="work-date">12/04/2026</span>
-              <span class="work-bottom">
-                <span><span class="work-name">Репортаж с открытия</span><span class="work-time">00:18</span></span>
-                <span class="work-tags"><span class="work-tag">Репортаж</span><span class="work-tag">Еда</span></span>
-              </span>
-              <span class="work-hover" aria-hidden="true"><span class="work-hover-name">Репортаж с открытия</span><span class="work-hover-time">00:18</span><span class="work-more">Подробнее</span></span>
-            </a>
-            <a class="work" href="#contact" data-service="Рекламный рилс" data-sphere="Предмет" data-title="Рилс одного предмета" data-hay="рилс одного предмета рекламный рилс предмет">
-              <span class="still still-product" aria-hidden="true"></span>
-              <span class="work-shade" aria-hidden="true"></span>
-              <span class="work-date">03/03/2026</span>
-              <span class="work-bottom">
-                <span><span class="work-name">Рилс одного предмета</span><span class="work-time">00:15</span></span>
-                <span class="work-tags"><span class="work-tag">Рекламный рилс</span><span class="work-tag">Предмет</span></span>
-              </span>
-              <span class="work-hover" aria-hidden="true"><span class="work-hover-name">Рилс одного предмета</span><span class="work-hover-time">00:15</span><span class="work-more">Подробнее</span></span>
-            </a>
-            <a class="work" href="#contact" data-service="Репортаж" data-sphere="Событие" data-title="Съёмка события" data-hay="съёмка события репортаж событие">
-              <span class="still still-hall" aria-hidden="true"></span>
-              <span class="work-shade" aria-hidden="true"></span>
-              <span class="work-date">21/02/2026</span>
-              <span class="work-bottom">
-                <span><span class="work-name">Съёмка события</span><span class="work-time">00:24</span></span>
-                <span class="work-tags"><span class="work-tag">Репортаж</span><span class="work-tag">Событие</span></span>
-              </span>
-              <span class="work-hover" aria-hidden="true"><span class="work-hover-name">Съёмка события</span><span class="work-hover-time">00:24</span><span class="work-more">Подробнее</span></span>
-            </a>
-            <a class="work" href="#contact" data-service="Рекламный рилс" data-sphere="Предмет" data-title="Предмет на столе" data-hay="предмет на столе рекламный рилс предмет">
-              <span class="still still-table" aria-hidden="true"></span>
-              <span class="work-shade" aria-hidden="true"></span>
-              <span class="work-date">09/01/2026</span>
-              <span class="work-bottom">
-                <span><span class="work-name">Предмет на столе</span><span class="work-time">00:09</span></span>
-                <span class="work-tags"><span class="work-tag">Рекламный рилс</span><span class="work-tag">Предмет</span></span>
-              </span>
-              <span class="work-hover" aria-hidden="true"><span class="work-hover-name">Предмет на столе</span><span class="work-hover-time">00:09</span><span class="work-more">Подробнее</span></span>
-            </a>
-            <a class="work" href="#contact" data-service="Сайт" data-sphere="Еда" data-title="Сайт пекарни" data-hay="сайт пекарни сайт еда">
-              <span class="still still-bakery" aria-hidden="true"></span>
-              <span class="work-shade" aria-hidden="true"></span>
-              <span class="work-date">12/04/2026</span>
-              <span class="work-bottom">
-                <span><span class="work-name">Сайт пекарни</span><span class="work-time">Страница</span></span>
-                <span class="work-tags"><span class="work-tag">Сайт</span><span class="work-tag">Еда</span></span>
-              </span>
-              <span class="work-hover" aria-hidden="true"><span class="work-hover-name">Сайт пекарни</span><span class="work-hover-time">Страница</span><span class="work-more">Подробнее</span></span>
-            </a>
-            <a class="work" href="#contact" data-service="Сайт" data-sphere="Услуги" data-title="Витрина мастерской" data-hay="витрина мастерской сайт услуги">
-              <span class="still still-shop" aria-hidden="true"></span>
-              <span class="work-shade" aria-hidden="true"></span>
-              <span class="work-date">28/11/2025</span>
-              <span class="work-bottom">
-                <span><span class="work-name">Витрина мастерской</span><span class="work-time">Страница</span></span>
-                <span class="work-tags"><span class="work-tag">Сайт</span><span class="work-tag">Услуги</span></span>
-              </span>
-              <span class="work-hover" aria-hidden="true"><span class="work-hover-name">Витрина мастерской</span><span class="work-hover-time">Страница</span><span class="work-more">Подробнее</span></span>
-            </a>
-            <a class="work" href="#contact" data-service="Репортаж" data-sphere="Производство" data-title="Репортаж из цеха" data-hay="репортаж из цеха репортаж производство">
-              <span class="still still-plant" aria-hidden="true"></span>
-              <span class="work-shade" aria-hidden="true"></span>
-              <span class="work-date">04/11/2025</span>
-              <span class="work-bottom">
-                <span><span class="work-name">Репортаж из цеха</span><span class="work-time">00:22</span></span>
-                <span class="work-tags"><span class="work-tag">Репортаж</span><span class="work-tag">Производство</span></span>
-              </span>
-              <span class="work-hover" aria-hidden="true"><span class="work-hover-name">Репортаж из цеха</span><span class="work-hover-time">00:22</span><span class="work-more">Подробнее</span></span>
-            </a>
-            <a class="work" href="#contact" data-service="Сайт" data-sphere="Услуги" data-title="Страница каталога" data-hay="страница каталога сайт услуги">
-              <span class="still still-catalog" aria-hidden="true"></span>
-              <span class="work-shade" aria-hidden="true"></span>
-              <span class="work-date">16/10/2025</span>
-              <span class="work-bottom">
-                <span><span class="work-name">Страница каталога</span><span class="work-time">Страница</span></span>
-                <span class="work-tags"><span class="work-tag">Сайт</span><span class="work-tag">Услуги</span></span>
-              </span>
-              <span class="work-hover" aria-hidden="true"><span class="work-hover-name">Страница каталога</span><span class="work-hover-time">Страница</span><span class="work-more">Подробнее</span></span>
-            </a>
+          <h3 class="subhead">Горизонтальные</h3>
+          <div class="wide-grid">
+            <article class="piece" data-title="Предмет на столе">
+              <a class="work work-wide" href="#contact"><span class="still still-table"></span><span class="work-shade"></span><span class="work-bottom"><span><span class="work-name">Предмет на столе</span><span class="work-time">00:09</span></span><span class="work-tag">16:9</span></span></a>
+              <p class="piece-text">Широкий план для шапки сайта: предмет, стол, тихий свет.</p>
+            </article>
+            <article class="piece" data-title="Зал целиком">
+              <a class="work work-wide" href="#contact"><span class="still still-room"></span><span class="work-shade"></span><span class="work-bottom"><span><span class="work-name">Зал целиком</span><span class="work-time">00:36</span></span><span class="work-tag">16:9</span></span></a>
+              <p class="piece-text">Горизонтальный общий план события, для экрана и страницы.</p>
+            </article>
+            <article class="piece" data-title="Линия цеха">
+              <a class="work work-wide" href="#contact"><span class="still still-line"></span><span class="work-shade"></span><span class="work-bottom"><span><span class="work-name">Линия цеха</span><span class="work-time">00:41</span></span><span class="work-tag">16:9</span></span></a>
+              <p class="piece-text">Пространство и люди в одном кадре. Для презентации.</p>
+            </article>
           </div>
-          <p class="works-empty" hidden>Ничего не нашлось. Снимите фильтр или измените запрос.</p>
         </div>
       </section>
 
-      <section class="sheet" id="order" aria-labelledby="order-title">
+      <section class="block" id="sites" aria-labelledby="sites-title">
         <div class="wrap">
-          <h2 id="order-title">Порядок</h2>
-          <ol>
-            <li>
-              <span class="idx">01</span>
-              <div>
-                <h3>Съёмка</h3>
-                <p>Репортаж с места и рекламный рилс. На выходе вертикальный ролик.</p>
-              </div>
-            </li>
-            <li>
-              <span class="idx">02</span>
-              <div>
-                <h3>Сайт</h3>
-                <p>Каркас, текст и вёрстка страницы, на которой остаётся этот кадр.</p>
-              </div>
-            </li>
-            <li>
-              <span class="idx">03</span>
-              <div>
-                <h3>Вместе</h3>
-                <p>Ролик и страница про одно и то же. Сначала кадр, потом место, где он живёт.</p>
-              </div>
-            </li>
-          </ol>
+          <h2 id="sites-title">Разработка сайтов</h2>
+          <p class="lede">Собираем страницу под снятый кадр. Каркас, текст и вёрстка. Сайт открывается сразу.</p>
+          <div class="wide-grid site-grid">
+            <article class="piece" data-title="Пекарня">
+              <a class="work work-wide" href="#contact"><span class="still still-bakery"></span><span class="work-shade"></span><span class="work-bottom"><span><span class="work-name">Пекарня</span><span class="work-time">Одна страница</span></span><span class="work-tag">Сайт</span></span></a>
+              <p class="piece-text">Адрес, часы и кадр с открытия на первом экране.</p>
+            </article>
+            <article class="piece" data-title="Мастерская">
+              <a class="work work-wide" href="#contact"><span class="still still-shop"></span><span class="work-shade"></span><span class="work-bottom"><span><span class="work-name">Мастерская</span><span class="work-time">Витрина</span></span><span class="work-tag">Сайт</span></span></a>
+              <p class="piece-text">Список работ и короткая форма заявки.</p>
+            </article>
+            <article class="piece" data-title="Каталог">
+              <a class="work work-wide" href="#contact"><span class="still still-catalog"></span><span class="work-shade"></span><span class="work-bottom"><span><span class="work-name">Каталог</span><span class="work-time">Сетка</span></span><span class="work-tag">Сайт</span></span></a>
+              <p class="piece-text">Ролики и страницы в одной сетке, без лишних разделов.</p>
+            </article>
+          </div>
         </div>
       </section>
 
@@ -440,14 +213,8 @@
             <p class="contact-mail"><a href="mailto:hello@rama.studio">hello@rama.studio</a></p>
           </div>
           <form>
-            <label class="field">
-              Имя
-              <input name="name" type="text" autocomplete="name" required maxlength="80" />
-            </label>
-            <label class="field">
-              О задаче
-              <textarea name="task" required maxlength="2000" rows="5"></textarea>
-            </label>
+            <label class="field">Имя<input name="name" type="text" autocomplete="name" required maxlength="80" /></label>
+            <label class="field">О задаче<textarea name="task" required maxlength="2000" rows="5"></textarea></label>
             <button class="btn" type="submit">Отправить</button>
             <p class="form-note" role="status">Открываем письмо в почте. Если окно не появилось, адрес выше.</p>
           </form>
@@ -468,12 +235,13 @@
       const openIcon = button.querySelector(".icon-open")
       const closeIcon = button.querySelector(".icon-close")
       const label = button.querySelector(".sr-only")
+      const video = document.querySelector(".hero-video")
+      const task = document.querySelector("[name=task]")
 
       function setHidden(node, hidden) {
         if (hidden) node.setAttribute("hidden", "")
         else node.removeAttribute("hidden")
       }
-
       function setOpen(open) {
         button.setAttribute("aria-expanded", String(open))
         menu.toggleAttribute("data-open", open)
@@ -483,65 +251,16 @@
         setHidden(closeIcon, !open)
         label.textContent = open ? "Закрыть меню" : "Меню"
       }
+      button.addEventListener("click", () => setOpen(button.getAttribute("aria-expanded") !== "true"))
+      menu.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => setOpen(false)))
+      document.addEventListener("keydown", (event) => { if (event.key === "Escape") setOpen(false) })
 
-      button.addEventListener("click", () => {
-        setOpen(button.getAttribute("aria-expanded") !== "true")
-      })
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) video.pause()
 
-      menu.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", () => setOpen(false))
-      })
-
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") setOpen(false)
-      })
-
-      const cards = [...document.querySelectorAll(".work")]
-      const count = document.querySelector(".works-count")
-      const empty = document.querySelector(".works-empty")
-      const search = document.querySelector(".search input")
-      const task = document.querySelector("[name=task]")
-      let service = ""
-      let sphere = ""
-
-      function worksLabel(n) {
-        const n10 = n % 10
-        const n100 = n % 100
-        const word = n10 === 1 && n100 !== 11 ? "работа" : n10 >= 2 && n10 <= 4 && (n100 < 12 || n100 > 14) ? "работы" : "работ"
-        return n + " " + word + " найдено"
-      }
-
-      function apply() {
-        const q = search.value.trim().toLowerCase()
-        let n = 0
-        cards.forEach((card) => {
-          const ok = (!service || card.dataset.service === service) && (!sphere || card.dataset.sphere === sphere) && (!q || card.dataset.hay.includes(q))
-          card.hidden = !ok
-          if (ok) n += 1
-        })
-        count.textContent = worksLabel(n)
-        empty.hidden = n !== 0
-      }
-
-      document.querySelectorAll("[data-filter]").forEach((filter) => {
-        filter.addEventListener("click", () => {
-          const key = filter.dataset.filter
-          const value = filter.dataset.value
-          if (key === "service") service = service === value ? "" : value
-          if (key === "sphere") sphere = sphere === value ? "" : value
-          document.querySelectorAll('[data-filter="' + key + '"]').forEach((item) => {
-            item.setAttribute("aria-pressed", String(item.dataset.value === (key === "service" ? service : sphere)))
-          })
-          apply()
-        })
-      })
-
-      search.addEventListener("input", apply)
-
-      cards.forEach((card) => {
-        card.addEventListener("click", (event) => {
+      document.querySelectorAll(".piece").forEach((piece) => {
+        piece.querySelector("a").addEventListener("click", (event) => {
           event.preventDefault()
-          task.value = "Интересует формат: " + card.dataset.title
+          task.value = "Интересует формат: " + piece.dataset.title
           document.querySelector("#contact").scrollIntoView({ behavior: "smooth" })
           task.focus()
         })
@@ -552,10 +271,8 @@
         const data = new FormData(event.currentTarget)
         const name = String(data.get("name") || "").trim()
         const note = String(data.get("task") || "").trim()
-        const subject = encodeURIComponent(name ? "Рама, " + name : "Рама")
-        const body = encodeURIComponent(name + "\n\n" + note)
         document.querySelector(".form-note").setAttribute("data-show", "")
-        location.href = "mailto:hello@rama.studio?subject=" + subject + "&body=" + body
+        location.href = "mailto:hello@rama.studio?subject=" + encodeURIComponent(name ? "Рама, " + name : "Рама") + "&body=" + encodeURIComponent(name + "\n\n" + note)
       })
     </script>
   </body>

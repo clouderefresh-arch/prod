@@ -1,10 +1,10 @@
 import { FormEvent, useEffect, useRef, useState } from "react"
 import { Menu, X } from "lucide-react"
 import { FramePair } from "./frame/FramePair"
-import { SLATE, STUDIO_CITY, STUDIO_MAIL, STUDIO_NAME } from "./site"
+import { PAGES, REELS, SLATE, STUDIO_CITY, STUDIO_MAIL, STUDIO_NAME } from "./site"
 
 const LINKS = [
-  { href: "#shoot", label: "Съёмка" },
+  { href: "#video", label: "Видео" },
   { href: "#sites", label: "Сайты" },
   { href: "#order", label: "Порядок" },
 ]
@@ -109,11 +109,47 @@ export function App() {
           </div>
         </section>
 
+        <section className="portfolio" aria-labelledby="portfolio-title">
+          <div className="wrap">
+            <h2 id="portfolio-title">Портфолио</h2>
+            <div className="portfolio-block" id="video">
+              <h3 className="portfolio-label">Видео</h3>
+              <div className="reel-grid">
+                {REELS.map((reel) => (
+                  <article className="block block-reel" key={reel.title}>
+                    <span className="play" aria-hidden="true" />
+                    <div className="block-copy">
+                      <p className="block-title">{reel.title}</p>
+                      <p className="block-meta">
+                        <span className="tally" aria-hidden="true" />
+                        {reel.time}
+                      </p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+            <div className="portfolio-block" id="sites">
+              <h3 className="portfolio-label">Сайты</h3>
+              <div className="site-grid">
+                {PAGES.map((page) => (
+                  <article className="block block-site" key={page.title}>
+                    <div className="block-copy">
+                      <p className="block-title">{page.title}</p>
+                      <p className="block-meta">{page.note}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="sheet" id="order" aria-labelledby="order-title">
           <div className="wrap">
             <h2 id="order-title">Порядок</h2>
             <ol>
-              <li id="shoot">
+              <li>
                 <span className="idx">01</span>
                 <div>
                   <h3>Съёмка</h3>
@@ -123,7 +159,7 @@ export function App() {
                   </p>
                 </div>
               </li>
-              <li id="sites">
+              <li>
                 <span className="idx">02</span>
                 <div>
                   <h3>Сайты</h3>

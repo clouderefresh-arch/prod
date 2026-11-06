@@ -1,0 +1,14 @@
+[Unit]
+Description=Rama showreel upload
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/rama/upload.py
+Environment=RAMA_ROOT=/var/www/rama
+Environment=RAMA_TOKEN_FILE=/etc/rama/upload.token
+Restart=on-failure
+User=www-data
+Group=www-data
+
+[Install]
+WantedBy=multi-user.target

@@ -20,6 +20,7 @@ const LINKS = [
 
 export function App() {
   const [open, setOpen] = useState(false)
+  const [extraReels, setExtraReels] = useState<Piece[]>([])
   const menuRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
 
@@ -40,6 +41,29 @@ export function App() {
     const video = videoRef.current
     if (!video) return
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) video.pause()
+  }, [])
+
+  useEffect(() => {
+    fetch("/reels.json")
+      .then((response) => (response.ok ? response.json() : []))
+      .then((items: { id?: string; title?: string; time?: string; file?: string; poster?: string }[]) => {
+        if (!Array.isArray(items)) return
+        const known = new Set(REELS.map((piece) => piece.video))
+        setExtraReels(
+          items
+            .filter((item) => item.file && !known.has(item.file))
+            .map((item) => ({
+              id: item.id || item.file || "reel",
+              title: item.title || item.file || "Рилс",
+              time: item.time || "",
+              text: "",
+              still: "open",
+              video: item.file,
+              poster: item.poster,
+            })),
+        )
+      })
+      .catch(() => {})
   }, [])
 
   return (
@@ -122,7 +146,7 @@ export function App() {
             </p>
             <h3 className="subhead">Рилсы</h3>
             <div className="reel-grid">
-              {REELS.map((piece) => (
+              {[...REELS, ...extraReels].map((piece) => (
                 <PieceCard key={piece.id} piece={piece} shape="reel" tag="Рилс" />
               ))}
             </div>

@@ -264,7 +264,7 @@
 
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) video.pause()
 
-      document.querySelectorAll(".reel-video").forEach((node) => {
+      function bindReel(node) {
         const card = node.closest(".work")
         const play = card.querySelector(".play-btn")
         play.addEventListener("click", () => {
@@ -282,7 +282,34 @@
           node.controls = false
           card.classList.remove("is-playing")
         })
-      })
+      }
+      document.querySelectorAll(".reel-video").forEach(bindReel)
+
+      function esc(value) {
+        return String(value).replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]))
+      }
+      fetch("reels.json")
+        .then((response) => (response.ok ? response.json() : []))
+        .then((items) => {
+          if (!Array.isArray(items)) return
+          const grid = document.querySelector(".reel-grid")
+          const have = new Set([...grid.querySelectorAll("video")].map((node) => node.getAttribute("src")))
+          items.forEach((item) => {
+            if (!item.file || have.has(item.file)) return
+            const article = document.createElement("article")
+            article.className = "piece"
+            article.innerHTML =
+              '<div class="work work-reel">' +
+              '<video class="reel-video" src="' + esc(item.file) + '" poster="' + esc(item.poster || "") + '" playsinline preload="metadata"></video>' +
+              '<button class="play-btn" type="button" aria-label="Смотреть: ' + esc(item.title || "") + '"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M5 3.5v11l9-5.5-9-5.5z" fill="currentColor" /></svg></button>' +
+              '<span class="work-shade"></span>' +
+              '<span class="work-bottom"><span><span class="work-name">' + esc(item.title || "") + '</span><span class="work-time">' + esc(item.time || "") + '</span></span><span class="work-tag">Рилс</span></span>' +
+              "</div>"
+            grid.appendChild(article)
+            bindReel(article.querySelector(".reel-video"))
+          })
+        })
+        .catch(() => {})
     </script>
   </body>
 </html>

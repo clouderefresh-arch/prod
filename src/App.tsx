@@ -235,7 +235,7 @@ function PieceCard({ piece, shape, tag }: { piece: Piece; shape: "reel" | "wide"
           </button>
         ) : null}
       </div>
-      <p className="piece-text">{piece.text}</p>
+      {shape !== "reel" && piece.text ? <p className="piece-text">{piece.text}</p> : null}
     </article>
   )
 }

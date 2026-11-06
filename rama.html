@@ -151,17 +151,23 @@
               </div>
               <p class="piece-text">Шоурил. Карт, ночной зал, красный свет.</p>
             </article>
-            <article class="piece" data-title="Один предмет">
-              <div class="work work-reel"><span class="still still-product"></span><span class="work-shade"></span><span class="work-bottom"><span><span class="work-name">Один предмет</span><span class="work-time">00:15</span></span><span class="work-tag">Рилс</span></span></div>
-              <p class="piece-text">Рекламный рилс. В кадре один предмет, без лишних планов.</p>
+            <article class="piece" data-title="Данке">
+              <div class="work work-reel">
+                <video class="reel-video" src="timati-danke.mp4" poster="timati-danke.jpg" playsinline preload="metadata"></video>
+                <button class="play-btn" type="button" aria-label="Смотреть: Данке"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M5 3.5v11l9-5.5-9-5.5z" fill="currentColor" /></svg></button>
+                <span class="work-shade"></span>
+                <span class="work-bottom"><span><span class="work-name">Данке</span><span class="work-time">00:12</span></span><span class="work-tag">Рилс</span></span>
+              </div>
+              <p class="piece-text">Чёрно-белый рилс. Двое в комнате, мех и кожа.</p>
             </article>
-            <article class="piece" data-title="Событие">
-              <div class="work work-reel"><span class="still still-hall"></span><span class="work-shade"></span><span class="work-bottom"><span><span class="work-name">Событие</span><span class="work-time">00:24</span></span><span class="work-tag">Рилс</span></span></div>
-              <p class="piece-text">Короткий репортаж из зала: гости, речь, общий шум.</p>
-            </article>
-            <article class="piece" data-title="Цех">
-              <div class="work work-reel"><span class="still still-plant"></span><span class="work-shade"></span><span class="work-bottom"><span><span class="work-name">Цех</span><span class="work-time">00:22</span></span><span class="work-tag">Рилс</span></span></div>
-              <p class="piece-text">Руки и станок. Рабочий кадр, без постановочной улыбки.</p>
+            <article class="piece" data-title="Фэшн">
+              <div class="work work-reel">
+                <video class="reel-video" src="fashion-mgl.mp4" poster="fashion-mgl.jpg" playsinline preload="metadata"></video>
+                <button class="play-btn" type="button" aria-label="Смотреть: Фэшн"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M5 3.5v11l9-5.5-9-5.5z" fill="currentColor" /></svg></button>
+                <span class="work-shade"></span>
+                <span class="work-bottom"><span><span class="work-name">Фэшн</span><span class="work-time">00:16</span></span><span class="work-tag">Рилс</span></span>
+              </div>
+              <p class="piece-text">Уличный рилс. Двое под навесом, красный дом.</p>
             </article>
           </div>
           <h3 class="subhead">Горизонтальные</h3>
@@ -257,6 +263,12 @@
         const card = node.closest(".work")
         const play = card.querySelector(".play-btn")
         play.addEventListener("click", () => {
+          document.querySelectorAll(".reel-video").forEach((other) => {
+            if (other === node) return
+            other.pause()
+            other.controls = false
+            other.closest(".work").classList.remove("is-playing")
+          })
           node.controls = true
           card.classList.add("is-playing")
           node.play()

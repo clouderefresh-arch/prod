@@ -183,9 +183,23 @@ function PieceCard({ piece, shape, tag }: { piece: Piece; shape: "reel" | "wide"
   const videoRef = useRef<HTMLVideoElement>(null)
   const [playing, setPlaying] = useState(false)
 
+  useEffect(() => {
+    function stop(event: Event) {
+      if ((event as CustomEvent<string>).detail === piece.id) return
+      const node = videoRef.current
+      if (!node) return
+      node.pause()
+      node.controls = false
+      setPlaying(false)
+    }
+    window.addEventListener("rama-reel", stop)
+    return () => window.removeEventListener("rama-reel", stop)
+  }, [piece.id])
+
   function play() {
     const node = videoRef.current
     if (!node) return
+    window.dispatchEvent(new CustomEvent("rama-reel", { detail: piece.id }))
     setPlaying(true)
     node.controls = true
     void node.play()

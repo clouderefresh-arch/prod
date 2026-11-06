@@ -143,7 +143,7 @@ export function App() {
             <p className="lede">
               Снимаем рекламные ролики, репортажи и вертикальные Reels для социальных сетей — от идеи и съёмки до готового монтажа.
             </p>
-            <h3 className="subhead">Рилсы</h3>
+            <h3 className="subhead">Вертикальные</h3>
             <div className="reel-grid">
               {[...REELS, ...extraReels].map((piece) => (
                 <PieceCard key={piece.id} piece={piece} shape="reel" tag="Рилс" />
@@ -248,10 +248,10 @@ function PieceCard({ piece, shape, tag }: { piece: Piece; shape: "reel" | "wide"
         <span className="work-shade" aria-hidden="true" />
         <span className="work-bottom">
           <span>
-            <span className="work-name">{piece.title}</span>
+            {piece.video ? null : <span className="work-name">{piece.title}</span>}
             <span className="work-time">{piece.time}</span>
           </span>
-          <span className="work-tag">{tag}</span>
+          {shape === "wide" && piece.video ? null : <span className="work-tag">{tag}</span>}
         </span>
         {piece.video && !playing ? (
           <button className="play-btn" type="button" onClick={play} aria-label={`Смотреть: ${piece.title}`}>

@@ -53,7 +53,7 @@ export function App() {
             </a>
             <CallButton />
             <a className="btn btn-nav" href={`https://t.me/${STUDIO_TELEGRAM}`} target="_blank" rel="noreferrer">
-              Связаться
+              Написать
             </a>
           </div>
         </div>

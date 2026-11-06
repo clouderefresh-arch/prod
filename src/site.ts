@@ -63,25 +63,22 @@ export const REELS: Piece[] = [
 
 export const WIDES: Piece[] = [
   {
-    id: "table",
-    title: "Предмет на столе",
-    time: "00:09",
-    text: "Широкий план для шапки сайта: предмет, стол, тихий свет.",
+    id: "gorizont-1",
+    title: "Горизонт 1",
+    time: "00:11",
+    text: "",
     still: "table",
+    video: "gorizont-1.mp4",
+    poster: "gorizont-1.jpg",
   },
   {
-    id: "room",
-    title: "Зал целиком",
-    time: "00:36",
-    text: "Горизонтальный общий план события, для экрана и страницы.",
+    id: "gorizont-2",
+    title: "Горизонт 2",
+    time: "00:08",
+    text: "",
     still: "room",
-  },
-  {
-    id: "line",
-    title: "Линия цеха",
-    time: "00:41",
-    text: "Пространство и люди в одном кадре. Для презентации.",
-    still: "line",
+    video: "gorizont-2.mp4",
+    poster: "gorizont-2.jpg",
   },
 ]
 

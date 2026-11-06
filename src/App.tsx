@@ -242,6 +242,8 @@ function PieceCard({ piece, shape, tag }: { piece: Piece; shape: "reel" | "wide"
             preload="metadata"
             onEnded={() => setPlaying(false)}
           />
+        ) : piece.poster ? (
+          <img className="site-shot" src={`/${piece.poster}`} alt={piece.title} />
         ) : (
           <span className={`still still-${piece.still}`} aria-hidden="true" />
         )}

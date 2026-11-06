@@ -84,24 +84,19 @@ export const WIDES: Piece[] = [
 
 export const SITES: Piece[] = [
   {
-    id: "bakery",
-    title: "Пекарня",
-    time: "Одна страница",
-    text: "Адрес, часы и кадр с открытия на первом экране.",
-    still: "bakery",
-  },
-  {
-    id: "shop",
-    title: "Мастерская",
-    time: "Витрина",
-    text: "Список работ и ссылка, чтобы сразу написать.",
+    id: "ptk",
+    title: "ПТК",
+    time: "Сервис",
+    text: "",
     still: "shop",
+    poster: "site-ptk.jpg",
   },
   {
-    id: "catalog",
-    title: "Каталог",
-    time: "Сетка",
-    text: "Ролики и страницы в одной сетке, без лишних разделов.",
-    still: "catalog",
+    id: "jurist",
+    title: "Юрист",
+    time: "Лендинг",
+    text: "",
+    still: "bakery",
+    poster: "site-jurist.jpg",
   },
 ]

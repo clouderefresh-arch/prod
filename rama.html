@@ -58,7 +58,8 @@
       .work { position: relative; display: block; overflow: hidden; border-radius: 24px; color: var(--ink); text-decoration: none; }
       .work-reel { aspect-ratio: 9 / 16; }
       .work-wide { aspect-ratio: 16 / 9; }
-      .still, .work-shade, .reel-video { position: absolute; inset: 0; }
+      .still, .work-shade, .reel-video, .site-shot { position: absolute; inset: 0; }
+      .site-shot { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
       .reel-video { width: 100%; height: 100%; object-fit: cover; background: #111; }
       .play-btn { position: absolute; z-index: 2; top: 42%; left: 50%; display: grid; place-items: center; width: 64px; height: 64px; padding: 0; border: 0; border-radius: 50%; background: rgba(18,18,18,.5); color: #fff; transform: translate(-50%, -50%); cursor: pointer; }
       .play-btn svg { display: block; margin-left: 3px; }
@@ -202,17 +203,11 @@
           <h2 id="sites-title">Разработка сайтов</h2>
           <p class="lede">Собираем страницу под снятый кадр. Каркас, текст и вёрстка. Сайт открывается сразу.</p>
           <div class="wide-grid site-grid">
-            <article class="piece" data-title="Пекарня">
-              <div class="work work-wide"><span class="still still-bakery"></span><span class="work-shade"></span><span class="work-bottom"><span><span class="work-name">Пекарня</span><span class="work-time">Одна страница</span></span><span class="work-tag">Сайт</span></span></div>
-              <p class="piece-text">Адрес, часы и кадр с открытия на первом экране.</p>
+            <article class="piece" data-title="ПТК">
+              <div class="work work-wide"><img class="site-shot" src="site-ptk.jpg" alt="ПТК"><span class="work-shade"></span><span class="work-bottom"><span><span class="work-name">ПТК</span><span class="work-time">Сервис</span></span><span class="work-tag">Сайт</span></span></div>
             </article>
-            <article class="piece" data-title="Мастерская">
-              <div class="work work-wide"><span class="still still-shop"></span><span class="work-shade"></span><span class="work-bottom"><span><span class="work-name">Мастерская</span><span class="work-time">Витрина</span></span><span class="work-tag">Сайт</span></span></div>
-              <p class="piece-text">Список работ и ссылка, чтобы сразу написать.</p>
-            </article>
-            <article class="piece" data-title="Каталог">
-              <div class="work work-wide"><span class="still still-catalog"></span><span class="work-shade"></span><span class="work-bottom"><span><span class="work-name">Каталог</span><span class="work-time">Сетка</span></span><span class="work-tag">Сайт</span></span></div>
-              <p class="piece-text">Ролики и страницы в одной сетке, без лишних разделов.</p>
+            <article class="piece" data-title="Юрист">
+              <div class="work work-wide"><img class="site-shot" src="site-jurist.jpg" alt="Юрист"><span class="work-shade"></span><span class="work-bottom"><span><span class="work-name">Юрист</span><span class="work-time">Лендинг</span></span><span class="work-tag">Сайт</span></span></div>
             </article>
           </div>
         </div>

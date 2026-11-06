@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react"
-import { Menu, X } from "lucide-react"
 import {
   REELS,
   SITES,
@@ -13,29 +12,9 @@ import {
   type Piece,
 } from "./site"
 
-const LINKS = [
-  { href: "#video", label: "Съёмка" },
-  { href: "#sites", label: "Сайты" },
-]
-
 export function App() {
-  const [open, setOpen] = useState(false)
   const [extraReels, setExtraReels] = useState<Piece[]>([])
-  const menuRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
-
-  useEffect(() => {
-    if (menuRef.current) menuRef.current.inert = !open
-  }, [open])
-
-  useEffect(() => {
-    if (!open) return
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false)
-    }
-    window.addEventListener("keydown", onKey)
-    return () => window.removeEventListener("keydown", onKey)
-  }, [open])
 
   useEffect(() => {
     const video = videoRef.current
@@ -70,13 +49,6 @@ export function App() {
     <div className="page" id="top">
       <header className="nav-bar">
         <div className="wrap nav">
-          <nav className="nav-links" aria-label="Разделы">
-            {LINKS.map((link) => (
-              <a key={link.href} href={link.href}>
-                {link.label}
-              </a>
-            ))}
-          </nav>
           <div className="nav-contacts">
             <a className="nav-mail" href={`mailto:${STUDIO_MAIL}`}>
               {STUDIO_MAIL}
@@ -85,35 +57,9 @@ export function App() {
               {STUDIO_PHONE_LABEL}
             </a>
             <a className="btn btn-nav" href={`https://t.me/${STUDIO_TELEGRAM}`} target="_blank" rel="noreferrer">
-              Telegram
+              Связаться
             </a>
           </div>
-          <button
-            type="button"
-            className="menu-btn"
-            aria-expanded={open}
-            aria-controls="site-menu"
-            onClick={() => setOpen((value) => !value)}
-          >
-            {open ? <X size={18} strokeWidth={1.5} /> : <Menu size={18} strokeWidth={1.5} />}
-            <span className="sr-only">{open ? "Закрыть меню" : "Меню"}</span>
-          </button>
-        </div>
-        <div id="site-menu" ref={menuRef} className="menu" data-open={open || undefined} aria-hidden={open ? undefined : true}>
-          {LINKS.map((link) => (
-            <a key={link.href} href={link.href} onClick={() => setOpen(false)}>
-              {link.label}
-            </a>
-          ))}
-          <a className="plain" href={`mailto:${STUDIO_MAIL}`} onClick={() => setOpen(false)}>
-            {STUDIO_MAIL}
-          </a>
-          <a className="plain" href={`tel:${STUDIO_PHONE}`} onClick={() => setOpen(false)}>
-            {STUDIO_PHONE_LABEL}
-          </a>
-          <a className="plain" href={`https://t.me/${STUDIO_TELEGRAM}`} target="_blank" rel="noreferrer" onClick={() => setOpen(false)}>
-            @{STUDIO_TELEGRAM}
-          </a>
         </div>
       </header>
 

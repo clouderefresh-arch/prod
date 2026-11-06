@@ -25,17 +25,18 @@
       #video, #sites, #reach { scroll-margin-top: 80px; }
       .wrap { width: min(1160px, calc(100% - 48px)); margin-inline: auto; }
       .nav-bar { position: fixed; top: 0; right: 0; left: 0; z-index: 20; background: rgba(18,18,18,.55); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,.06); }
-      .nav { display: flex; align-items: center; height: 64px; gap: 24px; }
+      .nav { display: flex; align-items: center; justify-content: center; min-height: 64px; gap: 24px; }
       .nav-links { display: flex; align-items: center; gap: 22px; }
       .nav-links a, .nav-mail, .reach-row a, footer a { color: var(--ink); font-size: 13px; letter-spacing: .06em; text-decoration: none; text-transform: uppercase; transition: color 160ms var(--ease); }
       .nav-links a:hover, .nav-mail:hover, .reach-row a:hover, footer a:hover { color: var(--lime); }
       .nav-mail, .reach-row a:not(.btn), .footer-links a { text-transform: none; letter-spacing: .02em; }
       .reach-row .btn:hover, .btn:hover { color: var(--bg); }
-      .nav-contacts { display: flex; align-items: center; gap: 22px; margin-left: auto; }
+      .nav-contacts { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 14px 22px; margin-left: 0; }
       .nav-mail { color: rgba(255,255,255,.72); text-transform: none; letter-spacing: .02em; }
       .btn { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: var(--lime); color: var(--bg); font: inherit; font-size: 13px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; text-decoration: none; cursor: pointer; }
       .btn:hover { background: #9adf62; }
-      .btn-nav { height: 40px; }
+      .btn-nav { height: 36px; padding: 0 16px; border: 1px solid rgba(255,255,255,.28); background: transparent; color: rgba(255,255,255,.92); font-weight: 500; }
+      .btn-nav:hover { background: transparent; border-color: rgba(255,255,255,.55); color: #fff; }
       .menu-btn { display: none; align-items: center; justify-content: center; width: 40px; height: 40px; padding: 0; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--ink); cursor: pointer; }
       .menu-btn svg { display: block; }
       .menu-btn svg[hidden] { display: none; }
@@ -84,11 +85,13 @@
       .reach-row { margin-top: 20px; }
       footer { border-top: 1px solid var(--line); }
       .footer-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; color: var(--muted); font-size: 13px; }
-      @media (max-width: 980px) { .nav-mail { display: none; } .nav-contacts { gap: 0; } .reel-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+      @media (max-width: 980px) { .reel-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
       @media (max-width: 800px) {
         .wrap { width: min(1160px, calc(100% - 40px)); }
-        .nav-links, .btn-nav { display: none; }
-        .menu-btn { display: inline-flex; margin-left: auto; }
+        .nav { min-height: 56px; padding: 10px 0; }
+        .nav-contacts { gap: 8px 14px; }
+        .nav-mail { font-size: 12px; }
+        .btn-nav { height: 32px; padding: 0 12px; font-size: 12px; }
         .menu { position: absolute; top: 64px; right: 0; left: 0; display: flex; flex-direction: column; padding: 8px 20px 16px; background: var(--bg); border-bottom: 1px solid var(--line); visibility: hidden; opacity: 0; transform: translateY(6px); pointer-events: none; transition: opacity 180ms var(--ease), transform 180ms var(--ease), visibility 180ms var(--ease); }
         .menu[data-open] { visibility: visible; opacity: 1; transform: none; pointer-events: auto; }
         .menu a { display: flex; align-items: center; height: 44px; color: var(--ink); font-size: 15px; letter-spacing: .06em; text-decoration: none; text-transform: uppercase; }
@@ -100,27 +103,11 @@
   <body>
     <header class="nav-bar">
       <div class="wrap nav">
-        <nav class="nav-links" aria-label="Разделы">
-          <a href="#video">Съёмка</a>
-          <a href="#sites">Сайты</a>
-        </nav>
         <div class="nav-contacts">
           <a class="nav-mail" href="mailto:hello@rama.studio">hello@rama.studio</a>
           <a class="nav-mail" href="tel:+79520193841">+7 952 019-38-41</a>
-          <a class="btn btn-nav" href="https://t.me/Suhr_LL" target="_blank" rel="noreferrer">Telegram</a>
+          <a class="btn btn-nav" href="https://t.me/Suhr_LL" target="_blank" rel="noreferrer">Связаться</a>
         </div>
-        <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-menu">
-          <svg class="icon-open" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 5h12M3 9h12M3 13h12" /></svg>
-          <svg class="icon-close" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" hidden aria-hidden="true"><path d="M4 4l10 10M14 4L4 14" /></svg>
-          <span class="sr-only">Меню</span>
-        </button>
-      </div>
-      <div id="site-menu" class="menu" inert>
-        <a href="#video">Съёмка</a>
-        <a href="#sites">Сайты</a>
-        <a class="plain" href="mailto:hello@rama.studio">hello@rama.studio</a>
-        <a class="plain" href="tel:+79520193841">+7 952 019-38-41</a>
-        <a class="plain" href="https://t.me/Suhr_LL" target="_blank" rel="noreferrer">@Suhr_LL</a>
       </div>
     </header>
 
@@ -237,30 +224,7 @@
     </footer>
 
     <script>
-      const button = document.querySelector(".menu-btn")
-      const menu = document.querySelector(".menu")
-      const openIcon = button.querySelector(".icon-open")
-      const closeIcon = button.querySelector(".icon-close")
-      const label = button.querySelector(".sr-only")
       const video = document.querySelector(".hero-video")
-
-      function setHidden(node, hidden) {
-        if (hidden) node.setAttribute("hidden", "")
-        else node.removeAttribute("hidden")
-      }
-      function setOpen(open) {
-        button.setAttribute("aria-expanded", String(open))
-        menu.toggleAttribute("data-open", open)
-        if (open) menu.removeAttribute("inert")
-        else menu.setAttribute("inert", "")
-        setHidden(openIcon, open)
-        setHidden(closeIcon, !open)
-        label.textContent = open ? "Закрыть меню" : "Меню"
-      }
-      button.addEventListener("click", () => setOpen(button.getAttribute("aria-expanded") !== "true"))
-      menu.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => setOpen(false)))
-      document.addEventListener("keydown", (event) => { if (event.key === "Escape") setOpen(false) })
-
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) video.pause()
 
       function bindReel(node) {

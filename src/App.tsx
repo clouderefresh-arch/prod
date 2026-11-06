@@ -5,8 +5,6 @@ import {
   STUDIO_CITY,
   STUDIO_MAIL,
   STUDIO_NAME,
-  STUDIO_PHONE,
-  STUDIO_PHONE_LABEL,
   STUDIO_TELEGRAM,
   WIDES,
   type Piece,
@@ -53,9 +51,7 @@ export function App() {
             <a className="nav-mail" href={`mailto:${STUDIO_MAIL}`}>
               {STUDIO_MAIL}
             </a>
-            <a className="nav-mail" href={`tel:${STUDIO_PHONE}`}>
-              {STUDIO_PHONE_LABEL}
-            </a>
+            <CallButton />
             <a className="btn btn-nav" href={`https://t.me/${STUDIO_TELEGRAM}`} target="_blank" rel="noreferrer">
               Связаться
             </a>
@@ -122,8 +118,8 @@ export function App() {
             <h2 id="reach-title">Связаться</h2>
             <div className="reach-row">
               <a href={`mailto:${STUDIO_MAIL}`}>{STUDIO_MAIL}</a>
-              <a href={`tel:${STUDIO_PHONE}`}>{STUDIO_PHONE_LABEL}</a>
-              <a className="btn" href={`https://t.me/${STUDIO_TELEGRAM}`} target="_blank" rel="noreferrer">
+              <CallButton />
+              <a className="btn btn-nav" href={`https://t.me/${STUDIO_TELEGRAM}`} target="_blank" rel="noreferrer">
                 Telegram
               </a>
             </div>
@@ -138,7 +134,7 @@ export function App() {
           </span>
           <span className="footer-links">
             <a href={`mailto:${STUDIO_MAIL}`}>{STUDIO_MAIL}</a>
-            <a href={`tel:${STUDIO_PHONE}`}>{STUDIO_PHONE_LABEL}</a>
+            <CallButton />
             <a href={`https://t.me/${STUDIO_TELEGRAM}`} target="_blank" rel="noreferrer">
               @{STUDIO_TELEGRAM}
             </a>
@@ -146,6 +142,23 @@ export function App() {
         </div>
       </footer>
     </div>
+  )
+}
+
+function CallButton() {
+  const [shown, setShown] = useState(false)
+  if (!shown) {
+    return (
+      <button type="button" className="btn btn-nav" onClick={() => setShown(true)}>
+        Позвонить
+      </button>
+    )
+  }
+  const parts = ["952", "019", "38", "41"]
+  return (
+    <a className="nav-mail" href={`tel:+7${parts.join("")}`}>
+      {`+7 ${parts[0]} ${parts[1]}-${parts[2]}-${parts[3]}`}
+    </a>
   )
 }
 

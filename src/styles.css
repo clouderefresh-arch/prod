@@ -136,7 +136,9 @@ body { margin: 0; background: var(--bg); }
   color: rgba(255, 255, 255, 0.92);
   font-weight: 500;
 }
-.btn-nav:hover {
+.btn-nav:hover,
+.reach-row .btn-nav:hover,
+.footer .btn-nav:hover {
   background: transparent;
   border-color: rgba(255, 255, 255, 0.55);
   color: #fff;
@@ -437,7 +439,10 @@ body { margin: 0; background: var(--bg); }
 
 .reach-row { margin-top: 20px; }
 
-.reach-row .btn:hover { color: var(--bg); }
+.reach-row .btn {
+  flex: none;
+  width: auto;
+}
 
 .footer { border-top: 1px solid var(--line); }
 

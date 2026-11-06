@@ -58,7 +58,11 @@
       .work { position: relative; display: block; overflow: hidden; border-radius: 24px; color: var(--ink); text-decoration: none; }
       .work-reel { aspect-ratio: 9 / 16; }
       .work-wide { aspect-ratio: 16 / 9; }
-      .still, .work-shade { position: absolute; inset: 0; }
+      .still, .work-shade, .reel-video { position: absolute; inset: 0; }
+      .reel-video { width: 100%; height: 100%; object-fit: cover; background: #111; }
+      .play-btn { position: absolute; z-index: 2; top: 42%; left: 50%; display: grid; place-items: center; width: 64px; height: 64px; padding: 0; border: 0; border-radius: 50%; background: rgba(18,18,18,.5); color: #fff; transform: translate(-50%, -50%); cursor: pointer; }
+      .play-btn svg { display: block; margin-left: 3px; }
+      .work.is-playing .work-shade, .work.is-playing .work-bottom, .work.is-playing .play-btn { opacity: 0; pointer-events: none; }
       .work-shade { background: linear-gradient(180deg, rgba(0,0,0,.05) 30%, rgba(0,0,0,.78) 100%); }
       .work-bottom { position: absolute; z-index: 1; right: 14px; bottom: 14px; left: 14px; display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; }
       .work-name { display: block; font-size: 16px; line-height: 1.25; }
@@ -138,9 +142,14 @@
           <p class="lede">Репортаж и реклама с места. Вертикальный рилс для ленты и горизонтальный ролик для сайта и большого экрана.</p>
           <h3 class="subhead">Рилсы</h3>
           <div class="reel-grid">
-            <article class="piece" data-title="Открытие">
-              <div class="work work-reel"><span class="still still-open"></span><span class="work-shade"></span><span class="work-bottom"><span><span class="work-name">Открытие</span><span class="work-time">00:18</span></span><span class="work-tag">Рилс</span></span></div>
-              <p class="piece-text">Вертикальный репортаж первого часа: люди, свет, вывеска.</p>
+            <article class="piece" data-title="Тимати">
+              <div class="work work-reel">
+                <video class="reel-video" src="timati-reel.mp4" poster="timati-reel.jpg" playsinline preload="metadata"></video>
+                <button class="play-btn" type="button" aria-label="Смотреть: Тимати"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M5 3.5v11l9-5.5-9-5.5z" fill="currentColor" /></svg></button>
+                <span class="work-shade"></span>
+                <span class="work-bottom"><span><span class="work-name">Тимати</span><span class="work-time">00:07</span></span><span class="work-tag">Рилс</span></span>
+              </div>
+              <p class="piece-text">Шоурил. Карт, ночной зал, красный свет.</p>
             </article>
             <article class="piece" data-title="Один предмет">
               <div class="work work-reel"><span class="still still-product"></span><span class="work-shade"></span><span class="work-bottom"><span><span class="work-name">Один предмет</span><span class="work-time">00:15</span></span><span class="work-tag">Рилс</span></span></div>
@@ -243,6 +252,20 @@
       document.addEventListener("keydown", (event) => { if (event.key === "Escape") setOpen(false) })
 
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) video.pause()
+
+      document.querySelectorAll(".reel-video").forEach((node) => {
+        const card = node.closest(".work")
+        const play = card.querySelector(".play-btn")
+        play.addEventListener("click", () => {
+          node.controls = true
+          card.classList.add("is-playing")
+          node.play()
+        })
+        node.addEventListener("ended", () => {
+          node.controls = false
+          card.classList.remove("is-playing")
+        })
+      })
     </script>
   </body>
 </html>

@@ -256,7 +256,42 @@ body { margin: 0; background: var(--bg); }
 .work-wide { aspect-ratio: 16 / 9; }
 
 .still,
-.work-shade { position: absolute; inset: 0; }
+.work-shade,
+.reel-video { position: absolute; inset: 0; }
+
+.reel-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #111;
+}
+
+.play-btn {
+  position: absolute;
+  z-index: 2;
+  top: 42%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(18, 18, 18, 0.5);
+  color: #fff;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+.play-btn svg { display: block; margin-left: 3px; }
+
+.work.is-playing .work-shade,
+.work.is-playing .work-bottom,
+.work.is-playing .play-btn {
+  opacity: 0;
+  pointer-events: none;
+}
 
 .work-shade {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.05) 30%, rgba(0, 0, 0, 0.78) 100%);

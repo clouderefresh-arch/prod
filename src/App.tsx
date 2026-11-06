@@ -180,10 +180,33 @@ export function App() {
 }
 
 function PieceCard({ piece, shape, tag }: { piece: Piece; shape: "reel" | "wide"; tag: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [playing, setPlaying] = useState(false)
+
+  function play() {
+    const node = videoRef.current
+    if (!node) return
+    setPlaying(true)
+    node.controls = true
+    void node.play()
+  }
+
   return (
     <article className="piece">
-      <div className={`work work-${shape}`}>
-        <span className={`still still-${piece.still}`} aria-hidden="true" />
+      <div className={`work work-${shape}${playing ? " is-playing" : ""}`}>
+        {piece.video ? (
+          <video
+            ref={videoRef}
+            className="reel-video"
+            src={`/${piece.video}`}
+            poster={piece.poster ? `/${piece.poster}` : undefined}
+            playsInline
+            preload="metadata"
+            onEnded={() => setPlaying(false)}
+          />
+        ) : (
+          <span className={`still still-${piece.still}`} aria-hidden="true" />
+        )}
         <span className="work-shade" aria-hidden="true" />
         <span className="work-bottom">
           <span>
@@ -192,9 +215,22 @@ function PieceCard({ piece, shape, tag }: { piece: Piece; shape: "reel" | "wide"
           </span>
           <span className="work-tag">{tag}</span>
         </span>
+        {piece.video && !playing ? (
+          <button className="play-btn" type="button" onClick={play} aria-label={`Смотреть: ${piece.title}`}>
+            <PlayIcon />
+          </button>
+        ) : null}
       </div>
       <p className="piece-text">{piece.text}</p>
     </article>
+  )
+}
+
+function PlayIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
+      <path d="M5 3.5v11l9-5.5-9-5.5z" fill="currentColor" />
+    </svg>
   )
 }
 

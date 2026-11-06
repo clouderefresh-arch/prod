@@ -18,15 +18,19 @@ export type Piece = {
   time: string
   text: string
   still: string
+  video?: string
+  poster?: string
 }
 
 export const REELS: Piece[] = [
   {
-    id: "open",
-    title: "Открытие",
-    time: "00:18",
-    text: "Вертикальный репортаж первого часа: люди, свет, вывеска.",
+    id: "timati",
+    title: "Тимати",
+    time: "00:07",
+    text: "Шоурил. Карт, ночной зал, красный свет.",
     still: "open",
+    video: "timati-reel.mp4",
+    poster: "timati-reel.jpg",
   },
   {
     id: "product",

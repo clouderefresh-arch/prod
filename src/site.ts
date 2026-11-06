@@ -24,6 +24,15 @@ export type Piece = {
 
 export const REELS: Piece[] = [
   {
+    id: "timati",
+    title: "Тимати",
+    time: "00:07",
+    text: "",
+    still: "open",
+    video: "timati-reel.mp4",
+    poster: "timati-reel.jpg",
+  },
+  {
     id: "danke",
     title: "Данке",
     time: "00:12",

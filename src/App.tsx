@@ -118,7 +118,7 @@ export function App() {
       </header>
 
       <main>
-        <section className="hero" aria-label="Шоурил">
+        <section className="hero" aria-label="Рама">
           <video
             ref={videoRef}
             className="hero-video"
@@ -133,16 +133,15 @@ export function App() {
           <div className="hero-shade" />
           <div className="hero-center">
             <img className="mark" src="/logo.png" alt="Рама" />
-            <p className="hero-line">Видео и сайты</p>
+            <p className="hero-line">Разработка сайтов, видеопроизводство и создание визуального контента для брендов и компаний.</p>
           </div>
-          <p className="hero-note">Шоурил</p>
         </section>
 
         <section className="block" id="video" aria-labelledby="video-title">
           <div className="wrap">
             <h2 id="video-title">Видеосъёмка</h2>
             <p className="lede">
-              Репортаж и реклама с места. Вертикальный рилс для ленты и горизонтальный ролик для сайта и большого экрана.
+              Снимаем рекламные ролики, репортажи и вертикальные Reels для социальных сетей — от идеи и съёмки до готового монтажа.
             </p>
             <h3 className="subhead">Рилсы</h3>
             <div className="reel-grid">
@@ -151,6 +150,7 @@ export function App() {
               ))}
             </div>
             <h3 className="subhead">Горизонтальные</h3>
+            <p className="lede">Создаём видео, которые передают атмосферу, эмоции и характер бренда.</p>
             <div className="wide-grid">
               {WIDES.map((piece) => (
                 <PieceCard key={piece.id} piece={piece} shape="wide" tag="16:9" />

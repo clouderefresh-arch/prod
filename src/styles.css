@@ -184,25 +184,13 @@ body { margin: 0; background: var(--bg); }
 }
 
 .hero-line {
-  margin: 18px 0 0;
-  color: rgba(255, 255, 255, 0.82);
-  font-size: 12px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-}
-
-.hero-note {
-  position: absolute;
-  z-index: 1;
-  bottom: 28px;
-  left: 0;
-  right: 0;
-  margin: 0;
-  color: var(--lime);
-  font-size: 12px;
-  letter-spacing: 0.18em;
+  margin: 8px 0 0;
+  max-width: 640px;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
   text-align: center;
-  text-transform: uppercase;
 }
 
 .block { padding: 72px 0 24px; }
@@ -218,11 +206,15 @@ body { margin: 0; background: var(--bg); }
 }
 
 .lede {
-  max-width: 640px;
+  max-width: 720px;
   margin: 12px 0 0;
   color: rgba(255, 255, 255, 0.78);
   font-size: 16px;
   line-height: 24px;
+}
+
+.subhead + .lede {
+  margin: 0 0 20px;
 }
 
 .subhead {

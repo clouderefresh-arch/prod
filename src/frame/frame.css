@@ -1,0 +1,178 @@
+/* Scoped to the demo. Wide: window inset top-left, off the bottom;
+   phone straddles the right edge, half outside, top in the upper half.
+   Compact: headline stays whole above a lower phone, window runs off the right. */
+
+.fp-frame .ss-stage {
+  --gutter: 28px;
+  overflow: hidden;
+  background: transparent;
+}
+
+.fp-window {
+  position: absolute;
+  z-index: 1;
+  top: var(--gutter);
+  left: var(--gutter);
+  width: 430px;
+  height: 560px;
+  background: #fdfbf7;
+  border-radius: 12px;
+  box-shadow: var(--ss-shadow-hero);
+}
+
+.fp-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #fdfbf7;
+  color: #1f1b16;
+}
+
+.fp-top {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  height: 44px;
+  padding: 0 20px;
+  border-bottom: 1px solid rgba(31, 27, 22, 0.08);
+}
+
+.fp-brand {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: #1f1b16;
+}
+
+.fp-body {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.fp-copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 28px 200px 28px 20px;
+}
+
+.fp-date {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: #6a6156;
+  font-variant-numeric: tabular-nums;
+}
+
+.fp-hl {
+  font-family: "Newsreader", "Iowan Old Style", Palatino, Georgia, serif;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: 0;
+  color: #1f1b16;
+}
+
+.fp-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.fp-photo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 188px;
+  overflow: hidden;
+}
+
+.fp-photo svg,
+.fp-facade {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.fp-fill {
+  position: absolute;
+  inset: 0;
+  background: #d2c0a6;
+}
+
+.fp-phone {
+  position: absolute;
+  z-index: 2;
+  top: 36px;
+  right: var(--gutter);
+  box-shadow: var(--ss-shadow-satellite);
+}
+
+.fp-reel {
+  position: absolute;
+  inset: 0;
+  background: #e4d3c0;
+}
+
+.fp-cap {
+  position: absolute;
+  top: 78px;
+  right: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.fp-cap-name {
+  font-family: "Newsreader", "Iowan Old Style", Palatino, Georgia, serif;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.15;
+  color: #1f1b16;
+}
+
+.fp-cap-time {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 16px;
+  color: #8f2d2a;
+}
+
+.fp-cap-code {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #8f2d2a;
+  font-variant-numeric: tabular-nums;
+}
+
+.fp-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #8f2d2a;
+}
+
+.fp-frame .ss-stage[data-layout="compact"] {
+  --gutter: 16px;
+}
+
+.fp-frame .ss-stage[data-layout="compact"] .fp-phone {
+  top: 24px;
+  right: auto;
+  left: 24px;
+}

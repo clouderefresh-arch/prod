@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Рама — рилс и сайты</title>
+    <meta name="description" content="Рама снимает репортажные и рекламные рилс и собирает сайты под этот кадр." />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23121212'/%3E%3Crect x='6' y='6' width='20' height='20' fill='none' stroke='%23fff' stroke-width='1.25'/%3E%3Crect x='14' y='5' width='4' height='2' fill='%238ad34e'/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #121212; --ink: #fff; --muted: #b0b0b0; --line: rgba(255,255,255,.14);
+        --lime: #8ad34e; --lime-soft: rgba(138,211,78,.16); --card: #1c1c1c;
+        --sans: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
+        --ease: cubic-bezier(.22,1,.36,1);
+      }
+      * { box-sizing: border-box; }
+      html { color-scheme: dark; }
+      body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 16px; font-weight: 500; line-height: 1.4; -webkit-font-smoothing: antialiased; }
+      ::selection { background: var(--lime); color: var(--bg); }
+      :focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
+      .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+      #video, #sites, #reach { scroll-margin-top: 80px; }
+      .wrap { width: min(1160px, calc(100% - 48px)); margin-inline: auto; }
+      .nav-bar { position: fixed; top: 0; right: 0; left: 0; z-index: 20; background: rgba(18,18,18,.55); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,.06); }
+      .nav { display: flex; align-items: center; height: 64px; gap: 24px; }
+      .nav-links { display: flex; align-items: center; gap: 22px; }
+      .nav-links a, .nav-mail, .reach-row a, footer a { color: var(--ink); font-size: 13px; letter-spacing: .06em; text-decoration: none; text-transform: uppercase; transition: color 160ms var(--ease); }
+      .nav-links a:hover, .nav-mail:hover, .reach-row a:hover, footer a:hover { color: var(--lime); }
+      .nav-mail, .reach-row a:not(.btn), .footer-links a { text-transform: none; letter-spacing: .02em; }
+      .reach-row .btn:hover, .btn:hover { color: var(--bg); }
+      .nav-contacts { display: flex; align-items: center; gap: 22px; margin-left: auto; }
+      .nav-mail { color: rgba(255,255,255,.72); text-transform: none; letter-spacing: .02em; }
+      .btn { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: var(--lime); color: var(--bg); font: inherit; font-size: 13px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; text-decoration: none; cursor: pointer; }
+      .btn:hover { background: #9adf62; }
+      .btn-nav { height: 40px; }
+      .menu-btn { display: none; align-items: center; justify-content: center; width: 40px; height: 40px; padding: 0; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--ink); cursor: pointer; }
+      .menu-btn svg { display: block; }
+      .menu-btn svg[hidden] { display: none; }
+      .menu { display: none; }
+      .hero { position: relative; display: grid; place-items: center; min-height: 100vh; min-height: 100dvh; overflow: hidden; background: #0c0c0d; }
+      .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      .hero-shade { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0,0,0,.28) 0%, rgba(0,0,0,.62) 72%), linear-gradient(180deg, rgba(0,0,0,.35), transparent 20%, transparent 78%, rgba(0,0,0,.55)); }
+      .hero-center { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; width: min(760px, 90vw); }
+      .mark { width: 100%; height: auto; }
+      .hero-line { margin: 18px 0 0; color: rgba(255,255,255,.82); font-size: 12px; letter-spacing: .22em; text-transform: uppercase; }
+      .hero-note { position: absolute; z-index: 1; bottom: 28px; left: 0; right: 0; margin: 0; color: var(--lime); font-size: 12px; letter-spacing: .18em; text-align: center; text-transform: uppercase; }
+      .block { padding: 72px 0 24px; }
+      h2 { margin: 0; color: var(--lime); font-size: 24px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; }
+      .lede { max-width: 640px; margin: 12px 0 0; color: rgba(255,255,255,.78); font-size: 16px; line-height: 24px; }
+      .subhead { margin: 36px 0 16px; font-size: 14px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
+      .reel-grid, .wide-grid { display: grid; gap: 28px 20px; }
+      .reel-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .wide-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .site-grid { margin-top: 32px; }
+      .work { position: relative; display: block; overflow: hidden; border-radius: 24px; color: var(--ink); text-decoration: none; }
+      .work-reel { aspect-ratio: 9 / 16; }
+      .work-wide { aspect-ratio: 16 / 9; }
+      .still, .work-shade, .reel-video { position: absolute; inset: 0; }
+      .reel-video { width: 100%; height: 100%; object-fit: cover; background: #111; }
+      .play-btn { position: absolute; z-index: 2; top: 42%; left: 50%; display: grid; place-items: center; width: 64px; height: 64px; padding: 0; border: 0; border-radius: 50%; background: rgba(18,18,18,.5); color: #fff; transform: translate(-50%, -50%); cursor: pointer; }
+      .play-btn svg { display: block; margin-left: 3px; }
+      .work.is-playing .work-shade, .work.is-playing .work-bottom, .work.is-playing .play-btn { opacity: 0; pointer-events: none; }
+      .work-shade { background: linear-gradient(180deg, rgba(0,0,0,.05) 30%, rgba(0,0,0,.78) 100%); }
+      .work-bottom { position: absolute; z-index: 1; right: 14px; bottom: 14px; left: 14px; display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; }
+      .work-name { display: block; font-size: 16px; line-height: 1.25; }
+      .work-time { display: block; margin-top: 4px; color: var(--muted); font-size: 13px; }
+      .work-tag { flex: none; padding: 7px 10px; border-radius: 60px; background: var(--lime-soft); color: var(--lime); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; }
+      .piece-text { margin: 10px 0 0; color: var(--muted); font-size: 14px; line-height: 20px; }
+      .still-open { background: radial-gradient(120px 150px at 76% 48%, #f3d48a 0%, #e2b85a 42%, transparent 72%), linear-gradient(#2c241c,#2c241c) 62% 18% / 32% 64% no-repeat, linear-gradient(#8d7760,#8d7760) 0 18% / 100% 10px no-repeat, #c4a882; }
+      .still-product { background: linear-gradient(#d7c4a4,#d7c4a4) 50% 68% / 42% 6px no-repeat, linear-gradient(#f4f1ea,#f4f1ea) 50% 42% / 36px 120px no-repeat, radial-gradient(42% 50% at 50% 40%, #3a342c, #141210 72%); }
+      .still-hall { background: radial-gradient(14px 14px at 28% 28%, #f2d48a, transparent 70%), radial-gradient(20px 20px at 50% 22%, #fff4d2, transparent 70%), radial-gradient(14px 14px at 72% 30%, #f2d48a, transparent 70%), linear-gradient(#141820,#141820) 0 62% / 100% 38% no-repeat, #0e1016; }
+      .still-table { background: linear-gradient(#f0e2cc,#f0e2cc) 62% 52% / 120px 70px no-repeat, linear-gradient(#8a704e,#6d5438); }
+      .still-plant, .still-line { background: linear-gradient(rgba(255,255,255,.7), rgba(255,255,255,.7)) 0 48% / 100% 2px no-repeat, linear-gradient(#4d5854,#4d5854) 12% 22% / 24% 56% no-repeat, linear-gradient(#3c4642,#3c4642) 42% 16% / 30% 68% no-repeat, linear-gradient(#68726c,#68726c) 76% 28% / 14% 48% no-repeat, #1d2422; }
+      .still-room { background: radial-gradient(180px 90px at 50% 42%, #f2d7a4 0%, transparent 70%), linear-gradient(#2a241c,#2a241c) 18% 30% / 64% 28% no-repeat, #1a1612; }
+      .still-bakery { background: linear-gradient(#2c241c,#2c241c) 72% 28% / 18% 40% no-repeat, linear-gradient(rgba(44,36,28,.9), rgba(44,36,28,.9)) 10% 34% / 36% 12px no-repeat, linear-gradient(rgba(44,36,28,.4), rgba(44,36,28,.4)) 10% 44% / 24% 8px no-repeat, #e7d7c2; }
+      .still-shop { background: linear-gradient(rgba(255,255,255,.9), rgba(255,255,255,.9)) 10% 32% / 42% 14px no-repeat, linear-gradient(rgba(255,255,255,.4), rgba(255,255,255,.4)) 10% 44% / 28% 8px no-repeat, linear-gradient(#8ad34e,#8ad34e) 10% 56% / 16% 10px no-repeat, #1a1a1a; }
+      .still-catalog { background: linear-gradient(#3a312b,#3a312b) 10% 28% / 36% 40% no-repeat, linear-gradient(#3a312b,#3a312b) 54% 28% / 36% 40% no-repeat, #241e1a; }
+      .reach { padding: 72px 0 88px; }
+      .reach-row, .footer-links { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; }
+      .reach-row { margin-top: 20px; }
+      footer { border-top: 1px solid var(--line); }
+      .footer-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; color: var(--muted); font-size: 13px; }
+      @media (max-width: 980px) { .nav-mail { display: none; } .nav-contacts { gap: 0; } .reel-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+      @media (max-width: 800px) {
+        .wrap { width: min(1160px, calc(100% - 40px)); }
+        .nav-links, .btn-nav { display: none; }
+        .menu-btn { display: inline-flex; margin-left: auto; }
+        .menu { position: absolute; top: 64px; right: 0; left: 0; display: flex; flex-direction: column; padding: 8px 20px 16px; background: var(--bg); border-bottom: 1px solid var(--line); visibility: hidden; opacity: 0; transform: translateY(6px); pointer-events: none; transition: opacity 180ms var(--ease), transform 180ms var(--ease), visibility 180ms var(--ease); }
+        .menu[data-open] { visibility: visible; opacity: 1; transform: none; pointer-events: auto; }
+        .menu a { display: flex; align-items: center; height: 44px; color: var(--ink); font-size: 15px; letter-spacing: .06em; text-decoration: none; text-transform: uppercase; }
+        .menu a.plain { letter-spacing: 0; text-transform: none; }
+        .wide-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="nav-bar">
+      <div class="wrap nav">
+        <nav class="nav-links" aria-label="Разделы">
+          <a href="#video">Съёмка</a>
+          <a href="#sites">Сайты</a>
+        </nav>
+        <div class="nav-contacts">
+          <a class="nav-mail" href="mailto:hello@rama.studio">hello@rama.studio</a>
+          <a class="nav-mail" href="tel:+79520193841">+7 952 019-38-41</a>
+          <a class="btn btn-nav" href="https://t.me/Suhr_LL" target="_blank" rel="noreferrer">Telegram</a>
+        </div>
+        <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-menu">
+          <svg class="icon-open" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 5h12M3 9h12M3 13h12" /></svg>
+          <svg class="icon-close" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" hidden aria-hidden="true"><path d="M4 4l10 10M14 4L4 14" /></svg>
+          <span class="sr-only">Меню</span>
+        </button>
+      </div>
+      <div id="site-menu" class="menu" inert>
+        <a href="#video">Съёмка</a>
+        <a href="#sites">Сайты</a>
+        <a class="plain" href="mailto:hello@rama.studio">hello@rama.studio</a>
+        <a class="plain" href="tel:+79520193841">+7 952 019-38-41</a>
+        <a class="plain" href="https://t.me/Suhr_LL" target="_blank" rel="noreferrer">@Suhr_LL</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-label="Шоурил">
+        <video class="hero-video" autoplay muted loop playsinline poster="showreel.jpg">
+          <source src="showreel.mp4" type="video/mp4" />
+        </video>
+        <div class="hero-shade"></div>
+        <div class="hero-center">
+          <img class="mark" src="logo.png" alt="Рама" />
+          <p class="hero-line">Видео и сайты</p>
+        </div>
+        <p class="hero-note">Шоурил</p>
+      </section>
+
+      <section class="block" id="video" aria-labelledby="video-title">
+        <div class="wrap">
+          <h2 id="video-title">Видеосъёмка</h2>
+          <p class="lede">Репортаж и реклама с места. Вертикальный рилс для ленты и горизонтальный ролик для сайта и большого экрана.</p>
+          <h3 class="subhead">Рилсы</h3>
+          <div class="reel-grid">
+            <article class="piece" data-title="Тимати">
+              <div class="work work-reel">
+                <video class="reel-video" src="timati-reel.mp4" poster="timati-reel.jpg" playsinline preload="metadata"></video>
+                <button class="play-btn" type="button" aria-label="Смотреть: Тимати"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M5 3.5v11l9-5.5-9-5.5z" fill="currentColor" /></svg></button>
+                <span class="work-shade"></span>
+                <span class="work-bottom"><span><span class="work-name">Тимати</span><span class="work-time">00:07</span></span><span class="work-tag">Рилс</span></span>
+              </div>
+              <p class="piece-text">Шоурил. Карт, ночной зал, красный свет.</p>
+            </article>
+            <article class="piece" data-title="Данке">
+              <div class="work work-reel">
+                <video class="reel-video" src="timati-danke.mp4" poster="timati-danke.jpg" playsinline preload="metadata"></video>
+                <button class="play-btn" type="button" aria-label="Смотреть: Данке"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M5 3.5v11l9-5.5-9-5.5z" fill="currentColor" /></svg></button>
+                <span class="work-shade"></span>
+                <span class="work-bottom"><span><span class="work-name">Данке</span><span class="work-time">00:12</span></span><span class="work-tag">Рилс</span></span>
+              </div>
+              <p class="piece-text">Чёрно-белый рилс. Двое в комнате, мех и кожа.</p>
+            </article>
+            <article class="piece" data-title="Фэшн">
+              <div class="work work-reel">
+                <video class="reel-video" src="fashion-mgl.mp4" poster="fashion-mgl.jpg" playsinline preload="metadata"></video>
+                <button class="play-btn" type="button" aria-label="Смотреть: Фэшн"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M5 3.5v11l9-5.5-9-5.5z" fill="currentColor" /></svg></button>
+                <span class="work-shade"></span>
+                <span class="work-bottom"><span><span class="work-name">Фэшн</span><span class="work-time">00:16</span></span><span class="work-tag">Рилс</span></span>
+              </div>
+              <p class="piece-text">Уличный рилс. Двое под навесом, красный дом.</p>
+            </article>
+          </div>
+          <h3 class="subhead">Горизонтальные</h3>
+          <div class="wide-grid">
+            <article class="piece" data-title="Предмет на столе">
+              <div class="work work-wide"><span class="still still-table"></span><span class="work-shade"></span><span class="work-bottom"><span><span class="work-name">Предмет на столе</span><span class="work-time">00:09</span></span><span class="work-tag">16:9</span></span></div>
+              <p class="piece-text">Широкий план для шапки сайта: предмет, стол, тихий свет.</p>
+            </article>
+            <article class="piece" data-title="Зал целиком">
+              <div class="work work-wide"><span class="still still-room"></span><span class="work-shade"></span><span class="work-bottom"><span><span class="work-name">Зал целиком</span><span class="work-time">00:36</span></span><span class="work-tag">16:9</span></span></div>
+              <p class="piece-text">Горизонтальный общий план события, для экрана и страницы.</p>
+            </article>
+            <article class="piece" data-title="Линия цеха">
+              <div class="work work-wide"><span class="still still-line"></span><span class="work-shade"></span><span class="work-bottom"><span><span class="work-name">Линия цеха</span><span class="work-time">00:41</span></span><span class="work-tag">16:9</span></span></div>
+              <p class="piece-text">Пространство и люди в одном кадре. Для презентации.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="block" id="sites" aria-labelledby="sites-title">
+        <div class="wrap">
+          <h2 id="sites-title">Разработка сайтов</h2>
+          <p class="lede">Собираем страницу под снятый кадр. Каркас, текст и вёрстка. Сайт открывается сразу.</p>
+          <div class="wide-grid site-grid">
+            <article class="piece" data-title="Пекарня">
+              <div class="work work-wide"><span class="still still-bakery"></span><span class="work-shade"></span><span class="work-bottom"><span><span class="work-name">Пекарня</span><span class="work-time">Одна страница</span></span><span class="work-tag">Сайт</span></span></div>
+              <p class="piece-text">Адрес, часы и кадр с открытия на первом экране.</p>
+            </article>
+            <article class="piece" data-title="Мастерская">
+              <div class="work work-wide"><span class="still still-shop"></span><span class="work-shade"></span><span class="work-bottom"><span><span class="work-name">Мастерская</span><span class="work-time">Витрина</span></span><span class="work-tag">Сайт</span></span></div>
+              <p class="piece-text">Список работ и ссылка, чтобы сразу написать.</p>
+            </article>
+            <article class="piece" data-title="Каталог">
+              <div class="work work-wide"><span class="still still-catalog"></span><span class="work-shade"></span><span class="work-bottom"><span><span class="work-name">Каталог</span><span class="work-time">Сетка</span></span><span class="work-tag">Сайт</span></span></div>
+              <p class="piece-text">Ролики и страницы в одной сетке, без лишних разделов.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="reach" id="reach" aria-labelledby="reach-title">
+        <div class="wrap">
+          <h2 id="reach-title">Связаться</h2>
+          <div class="reach-row">
+            <a href="mailto:hello@rama.studio">hello@rama.studio</a>
+            <a href="tel:+79520193841">+7 952 019-38-41</a>
+            <a class="btn" href="https://t.me/Suhr_LL" target="_blank" rel="noreferrer">Telegram</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap footer-row">
+        <span>Рама, Москва</span>
+        <span class="footer-links">
+          <a href="mailto:hello@rama.studio">hello@rama.studio</a>
+          <a href="tel:+79520193841">+7 952 019-38-41</a>
+          <a href="https://t.me/Suhr_LL" target="_blank" rel="noreferrer">@Suhr_LL</a>
+        </span>
+      </div>
+    </footer>
+
+    <script>
+      const button = document.querySelector(".menu-btn")
+      const menu = document.querySelector(".menu")
+      const openIcon = button.querySelector(".icon-open")
+      const closeIcon = button.querySelector(".icon-close")
+      const label = button.querySelector(".sr-only")
+      const video = document.querySelector(".hero-video")
+
+      function setHidden(node, hidden) {
+        if (hidden) node.setAttribute("hidden", "")
+        else node.removeAttribute("hidden")
+      }
+      function setOpen(open) {
+        button.setAttribute("aria-expanded", String(open))
+        menu.toggleAttribute("data-open", open)
+        if (open) menu.removeAttribute("inert")
+        else menu.setAttribute("inert", "")
+        setHidden(openIcon, open)
+        setHidden(closeIcon, !open)
+        label.textContent = open ? "Закрыть меню" : "Меню"
+      }
+      button.addEventListener("click", () => setOpen(button.getAttribute("aria-expanded") !== "true"))
+      menu.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => setOpen(false)))
+      document.addEventListener("keydown", (event) => { if (event.key === "Escape") setOpen(false) })
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) video.pause()
+
+      document.querySelectorAll(".reel-video").forEach((node) => {
+        const card = node.closest(".work")
+        const play = card.querySelector(".play-btn")
+        play.addEventListener("click", () => {
+          document.querySelectorAll(".reel-video").forEach((other) => {
+            if (other === node) return
+            other.pause()
+            other.controls = false
+            other.closest(".work").classList.remove("is-playing")
+          })
+          node.controls = true
+          card.classList.add("is-playing")
+          node.play()
+        })
+        node.addEventListener("ended", () => {
+          node.controls = false
+          card.classList.remove("is-playing")
+        })
+      })
+    </script>
+  </body>
+</html>

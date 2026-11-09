@@ -68,6 +68,7 @@ export function App() {
             muted
             loop
             playsInline
+            preload="metadata"
             poster="/showreel.jpg"
           >
             <source src="/showreel.mp4" type="video/mp4" />
@@ -198,7 +199,7 @@ function PieceCard({ piece, shape, tag }: { piece: Piece; shape: "reel" | "wide"
             src={`/${piece.video}`}
             poster={piece.poster ? `/${piece.poster}` : undefined}
             playsInline
-            preload="metadata"
+            preload="none"
             onEnded={() => setPlaying(false)}
           />
         ) : piece.poster ? (

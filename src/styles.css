@@ -6,7 +6,7 @@
   --lime: #8ad34e;
   --lime-soft: rgba(138, 211, 78, 0.16);
   --card: #1c1c1c;
-  --sans: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
+  --sans: "Avenir Next", "Segoe UI", system-ui, sans-serif;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   color-scheme: dark;
   background: var(--bg);

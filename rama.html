@@ -6,14 +6,11 @@
     <title>Рама — рилс и сайты</title>
     <meta name="description" content="Рама снимает репортажные и рекламные рилс и собирает сайты под этот кадр." />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23121212'/%3E%3Crect x='6' y='6' width='20' height='20' fill='none' stroke='%23fff' stroke-width='1.25'/%3E%3Crect x='14' y='5' width='4' height='2' fill='%238ad34e'/%3E%3C/svg%3E" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600&display=swap" rel="stylesheet" />
     <style>
       :root {
         --bg: #121212; --ink: #fff; --muted: #b0b0b0; --line: rgba(255,255,255,.14);
         --lime: #8ad34e; --lime-soft: rgba(138,211,78,.16); --card: #1c1c1c;
-        --sans: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
+        --sans: "Avenir Next", "Segoe UI", system-ui, sans-serif;
         --ease: cubic-bezier(.22,1,.36,1);
       }
       * { box-sizing: border-box; }
@@ -114,7 +111,7 @@
 
     <main id="top">
       <section class="hero" aria-label="Рама">
-        <video class="hero-video" autoplay muted loop playsinline poster="showreel.jpg">
+        <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="showreel.jpg">
           <source src="showreel.mp4" type="video/mp4" />
         </video>
         <div class="hero-shade"></div>
@@ -132,7 +129,7 @@
           <div class="reel-grid">
             <article class="piece" data-title="Тимати">
               <div class="work work-reel">
-                <video class="reel-video" src="timati-reel.mp4" poster="timati-reel.jpg" playsinline preload="metadata"></video>
+                <video class="reel-video" src="timati-reel.mp4" poster="timati-reel.jpg" playsinline preload="none"></video>
                 <button class="play-btn" type="button" aria-label="Смотреть: Тимати"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M5 3.5v11l9-5.5-9-5.5z" fill="currentColor" /></svg></button>
                 <span class="work-shade"></span>
                 <span class="work-bottom"><span class="work-time">00:07</span><span class="work-tag">Рилс</span></span>
@@ -140,7 +137,7 @@
             </article>
             <article class="piece" data-title="Данке">
               <div class="work work-reel">
-                <video class="reel-video" src="timati-danke.mp4" poster="timati-danke.jpg" playsinline preload="metadata"></video>
+                <video class="reel-video" src="timati-danke.mp4" poster="timati-danke.jpg" playsinline preload="none"></video>
                 <button class="play-btn" type="button" aria-label="Смотреть: Данке"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M5 3.5v11l9-5.5-9-5.5z" fill="currentColor" /></svg></button>
                 <span class="work-shade"></span>
                 <span class="work-bottom"><span class="work-time">00:12</span><span class="work-tag">Рилс</span></span>
@@ -148,7 +145,7 @@
             </article>
             <article class="piece" data-title="Фэшн">
               <div class="work work-reel">
-                <video class="reel-video" src="fashion-mgl.mp4" poster="fashion-mgl.jpg" playsinline preload="metadata"></video>
+                <video class="reel-video" src="fashion-mgl.mp4" poster="fashion-mgl.jpg" playsinline preload="none"></video>
                 <button class="play-btn" type="button" aria-label="Смотреть: Фэшн"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M5 3.5v11l9-5.5-9-5.5z" fill="currentColor" /></svg></button>
                 <span class="work-shade"></span>
                 <span class="work-bottom"><span class="work-time">00:16</span><span class="work-tag">Рилс</span></span>
@@ -156,7 +153,7 @@
             </article>
             <article class="piece" data-title="DOD">
               <div class="work work-reel">
-                <video class="reel-video" src="dod.mp4" poster="dod.jpg" playsinline preload="metadata"></video>
+                <video class="reel-video" src="dod.mp4" poster="dod.jpg" playsinline preload="none"></video>
                 <button class="play-btn" type="button" aria-label="Смотреть: DOD"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M5 3.5v11l9-5.5-9-5.5z" fill="currentColor" /></svg></button>
                 <span class="work-shade"></span>
                 <span class="work-bottom"><span class="work-time">00:11</span><span class="work-tag">Рилс</span></span>
@@ -168,7 +165,7 @@
           <div class="wide-grid">
             <article class="piece" data-title="Горизонт 1">
               <div class="work work-wide">
-                <video class="reel-video" src="gorizont-1.mp4" poster="gorizont-1.jpg" playsinline preload="metadata"></video>
+                <video class="reel-video" src="gorizont-1.mp4" poster="gorizont-1.jpg" playsinline preload="none"></video>
                 <button class="play-btn" type="button" aria-label="Смотреть: Горизонт 1"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M5 3.5v11l9-5.5-9-5.5z" fill="currentColor" /></svg></button>
                 <span class="work-shade"></span>
                 <span class="work-bottom"><span class="work-time">00:11</span></span>
@@ -176,7 +173,7 @@
             </article>
             <article class="piece" data-title="Горизонт 2">
               <div class="work work-wide">
-                <video class="reel-video" src="gorizont-2.mp4" poster="gorizont-2.jpg" playsinline preload="metadata"></video>
+                <video class="reel-video" src="gorizont-2.mp4" poster="gorizont-2.jpg" playsinline preload="none"></video>
                 <button class="play-btn" type="button" aria-label="Смотреть: Горизонт 2"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M5 3.5v11l9-5.5-9-5.5z" fill="currentColor" /></svg></button>
                 <span class="work-shade"></span>
                 <span class="work-bottom"><span class="work-time">00:08</span></span>
@@ -275,7 +272,7 @@
             article.className = "piece"
             article.innerHTML =
               '<div class="work work-reel">' +
-              '<video class="reel-video" src="' + esc(item.file) + '" poster="' + esc(item.poster || "") + '" playsinline preload="metadata"></video>' +
+              '<video class="reel-video" src="' + esc(item.file) + '" poster="' + esc(item.poster || "") + '" playsinline preload="none"></video>' +
               '<button class="play-btn" type="button" aria-label="Смотреть: ' + esc(item.title || "") + '"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M5 3.5v11l9-5.5-9-5.5z" fill="currentColor" /></svg></button>' +
               '<span class="work-shade"></span>' +
               '<span class="work-bottom"><span class="work-time">' + esc(item.time || "") + '</span><span class="work-tag">Рилс</span></span>' +

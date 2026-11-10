@@ -449,7 +449,7 @@ body { margin: 0; background: var(--bg); }
 .footer-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 16px;
   min-height: 64px;
   color: var(--muted);

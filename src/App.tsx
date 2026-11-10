@@ -2,9 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import {
   REELS,
   SITES,
-  STUDIO_CITY,
   STUDIO_MAIL,
-  STUDIO_NAME,
   STUDIO_TELEGRAM,
   WIDES,
   type Piece,
@@ -130,9 +128,6 @@ export function App() {
 
       <footer className="footer">
         <div className="wrap footer-row">
-          <span>
-            {STUDIO_NAME}, {STUDIO_CITY}
-          </span>
           <span className="footer-links">
             <a href={`mailto:${STUDIO_MAIL}`}>{STUDIO_MAIL}</a>
             <CallButton />

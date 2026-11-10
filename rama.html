@@ -82,7 +82,7 @@
       .reach-row { margin-top: 20px; }
       .reach-row .btn { flex: none; width: auto; }
       footer { border-top: 1px solid var(--line); }
-      .footer-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; color: var(--muted); font-size: 13px; }
+      .footer-row { display: flex; align-items: center; justify-content: flex-end; gap: 16px; min-height: 64px; color: var(--muted); font-size: 13px; }
       @media (max-width: 980px) { .reel-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
       @media (max-width: 800px) {
         .wrap { width: min(1160px, calc(100% - 40px)); }
@@ -212,7 +212,6 @@
 
     <footer>
       <div class="wrap footer-row">
-        <span>Рама, Москва</span>
         <span class="footer-links">
           <a href="mailto:hello@rama.studio">hello@rama.studio</a>
           <button type="button" class="btn btn-nav" data-reveal="phone">Позвонить</button>

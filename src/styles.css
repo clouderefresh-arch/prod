@@ -167,7 +167,7 @@ body { margin: 0; background: var(--bg); }
   min-height: 100vh;
   min-height: 100dvh;
   overflow: hidden;
-  background: #0c0c0d;
+  background: #0c0c0d url("/showreel.jpg?v=2") center / cover no-repeat;
 }
 
 .hero-video {

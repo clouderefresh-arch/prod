@@ -66,8 +66,8 @@ export function App() {
             muted
             loop
             playsInline
-            preload="metadata"
-            poster="/showreel.jpg"
+            preload="auto"
+            poster="/showreel.jpg?v=2"
           >
             <source src="/showreel.mp4" type="video/mp4" />
           </video>

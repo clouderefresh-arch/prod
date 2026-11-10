@@ -6,6 +6,7 @@
     <title>Рама — рилс и сайты</title>
     <meta name="description" content="Рама снимает репортажные и рекламные рилс и собирает сайты под этот кадр." />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23121212'/%3E%3Crect x='6' y='6' width='20' height='20' fill='none' stroke='%23fff' stroke-width='1.25'/%3E%3Crect x='14' y='5' width='4' height='2' fill='%238ad34e'/%3E%3C/svg%3E" />
+    <link rel="preload" as="image" href="showreel.jpg?v=2" fetchpriority="high" />
     <style>
       :root {
         --bg: #121212; --ink: #fff; --muted: #b0b0b0; --line: rgba(255,255,255,.14);
@@ -38,7 +39,7 @@
       .menu-btn svg { display: block; }
       .menu-btn svg[hidden] { display: none; }
       .menu { display: none; }
-      .hero { position: relative; display: grid; place-items: center; min-height: 100vh; min-height: 100dvh; overflow: hidden; background: #0c0c0d; }
+      .hero { position: relative; display: grid; place-items: center; min-height: 100vh; min-height: 100dvh; overflow: hidden; background: #0c0c0d url("showreel.jpg?v=2") center / cover no-repeat; }
       .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
       .hero-shade { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0,0,0,.28) 0%, rgba(0,0,0,.62) 72%), linear-gradient(180deg, rgba(0,0,0,.35), transparent 20%, transparent 78%, rgba(0,0,0,.55)); }
       .hero-center { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; width: min(760px, 90vw); }
@@ -111,7 +112,7 @@
 
     <main id="top">
       <section class="hero" aria-label="Рама">
-        <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="showreel.jpg">
+        <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="showreel.jpg?v=2">
           <source src="showreel.mp4" type="video/mp4" />
         </video>
         <div class="hero-shade"></div>

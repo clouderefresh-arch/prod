@@ -7,7 +7,7 @@
  */
 export const STUDIO_NAME = "Рама"
 export const STUDIO_CITY = "Москва"
-export const STUDIO_MAIL = "hello@rama.studio"
+export const STUDIO_MAIL = "hello@studio-rama.ru"
 export const STUDIO_PHONE = "+79520193841"
 export const STUDIO_PHONE_LABEL = "+7 952 019-38-41"
 export const STUDIO_TELEGRAM = "Suhr_LL"

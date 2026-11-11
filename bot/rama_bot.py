@@ -1,17 +1,22 @@
 #!/usr/bin/env python3
 """Принимает заявки в Telegram и присылает их администратору."""
 
+import email
 import json
 import os
+import re
 import time
 import urllib.error
 import urllib.request
 from datetime import datetime, timedelta, timezone
+from email.header import decode_header, make_header
+from email import policy
 
 TOKEN = os.environ["BOT_TOKEN"]
 ADMIN_ID = int(os.environ["ADMIN_ID"])
 API = f"https://api.telegram.org/bot{TOKEN}/"
 STATE_PATH = os.environ.get("STATE_PATH", "/var/lib/rama-bot/state.json")
+INBOX_PATH = os.environ.get("INBOX_PATH", "/var/lib/rama-bot/inbox")
 MSK = timezone(timedelta(hours=3))
 
 
@@ -159,15 +164,84 @@ def handle(state, message):
     notify_admin(state, message)
 
 
+def header_text(value):
+    if not value:
+        return ""
+    return str(make_header(decode_header(value)))
+
+
+def message_body(msg):
+    if msg.is_multipart():
+        parts = list(msg.walk())
+        plain = [
+            part.get_content()
+            for part in parts
+            if part.get_content_type() == "text/plain" and not part.get_filename()
+        ]
+        if plain:
+            return plain[0]
+        html = [
+            part.get_content()
+            for part in parts
+            if part.get_content_type() == "text/html" and not part.get_filename()
+        ]
+        if html:
+            return re.sub(r"<[^>]+>", " ", html[0])
+        return ""
+    return msg.get_content()
+
+
+def process_mail(state):
+    if not os.path.isdir(INBOX_PATH):
+        return
+    for name in sorted(os.listdir(INBOX_PATH)):
+        path = os.path.join(INBOX_PATH, name)
+        if not os.path.isfile(path):
+            continue
+        with open(path, "rb") as handle:
+            msg = email.message_from_binary_file(handle, policy=policy.default)
+        sender = header_text(msg.get("from"))
+        subject = header_text(msg.get("subject")) or "без темы"
+        when = datetime.now(MSK).strftime("%d.%m.%Y %H:%M")
+        body = re.sub(r"\s+", " ", message_body(msg) or "").strip()
+        text = f"{subject}\n\n{body}".strip()[:3000]
+        notice = (
+            "Новая заявка с почты\n"
+            f"От: {sender}\n"
+            "Кому: hello@studio-rama.ru\n"
+            f"Время: {when} МСК\n\n"
+            f"{text}"
+        )
+        send(ADMIN_ID, notice[:4000])
+        state["leads"].append(
+            {
+                "at": when,
+                "user_id": None,
+                "name": sender,
+                "username": "почта",
+                "text": text,
+            }
+        )
+        state["leads"] = state["leads"][-200:]
+        save_state(state)
+        os.remove(path)
+        print(f"mail lead from {sender}", flush=True)
+
+
 def main():
     os.makedirs(os.path.dirname(STATE_PATH), exist_ok=True)
+    os.makedirs(INBOX_PATH, exist_ok=True)
     api("deleteWebhook", {"drop_pending_updates": False})
     state = load_state()
     while True:
         try:
+            process_mail(state)
+        except Exception as error:
+            print(f"mail error: {error}", flush=True)
+        try:
             updates = api(
                 "getUpdates",
-                {"timeout": 30, "offset": state["offset"], "allowed_updates": ["message"]},
+                {"timeout": 25, "offset": state["offset"], "allowed_updates": ["message"]},
             )
         except Exception as error:
             print(f"poll error: {error}", flush=True)
